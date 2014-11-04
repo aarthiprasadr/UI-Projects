@@ -13,11 +13,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.optative.bf.dao.BlackFridayDao;
+import com.optative.bf.vo.CategoryList;
 import com.optative.bf.vo.DealList;
+import com.optative.bf.vo.StoreConfig;
+import com.optative.bf.vo.StoreList;
+import com.optative.bf.vo.SubCategoryList;
 
 /**
  * Restful services for Monitoring service.
@@ -31,6 +36,9 @@ public class ReportingController {
 	@Autowired
 	private BlackFridayDao daoImpl;
 
+	protected static final String LIMIT = "limit";
+	protected static final String MARKER = "marker";
+
 	private static final Logger log = LoggerFactory
 			.getLogger(ReportingController.class);
 
@@ -39,6 +47,14 @@ public class ReportingController {
 
 		log.debug("writing node metrics to data base");
 		daoImpl.addDeal(deal);
+	}
+
+	@RequestMapping(value = "/deals", method = RequestMethod.GET)
+	public @ResponseBody DealList getAllDeals(
+			@RequestParam(required = false, value = MARKER, defaultValue = "1") int marker,
+			@RequestParam(required = false, value = LIMIT, defaultValue = "50") int limit) {
+
+		return daoImpl.getAllDeals(marker, limit);
 	}
 
 	@RequestMapping(value = "/deals/store/{storeName}", method = RequestMethod.GET)
@@ -83,6 +99,37 @@ public class ReportingController {
 			@PathVariable String categoryName, @PathVariable String itemName) {
 
 		return daoImpl.getDealsByCategoryAndItem(categoryName, itemName);
+	}
+
+	@RequestMapping(value = "/stores", method = RequestMethod.GET)
+	public @ResponseBody StoreList getAllStores() {
+
+		return daoImpl.getAllStores();
+	}
+
+	@RequestMapping(value = "/category", method = RequestMethod.GET)
+	public @ResponseBody CategoryList getAllCategory() {
+
+		return daoImpl.getAllCategory();
+	}
+
+	@RequestMapping(value = "/sub-category", method = RequestMethod.GET)
+	public @ResponseBody SubCategoryList getAllSubCategory() {
+
+		return daoImpl.getAllSubCategory();
+	}
+
+	@RequestMapping(value = "/store-config/storeName/{storeName}", method = RequestMethod.GET)
+	public StoreConfig getStoreConfig(@PathVariable String storeName) {
+
+		return daoImpl.getStoreConfig(storeName);
+	}
+
+	@RequestMapping(value = "/category-config/storeName/{storeName}/category/{categoryName}", method = RequestMethod.GET)
+	public CategoryList getCategoryConfig(@PathVariable String storeName,
+			@PathVariable String categoryName) {
+
+		return daoImpl.getCategoryConfig(storeName, categoryName);
 	}
 
 	/**

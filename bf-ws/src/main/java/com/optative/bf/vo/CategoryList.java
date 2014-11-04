@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "cluster")
+@XmlRootElement(name = "category")
 public class CategoryList {
 
 	private List<String> categoryNames = new ArrayList<String>();
@@ -25,5 +25,9 @@ public class CategoryList {
 
 	public void setCategoryNames(List<String> categoryNames) {
 		this.categoryNames = categoryNames;
+	}
+	
+	public void addCategoryNames(String categoryName) {
+		categoryNames.add(categoryName);
 	}
 }

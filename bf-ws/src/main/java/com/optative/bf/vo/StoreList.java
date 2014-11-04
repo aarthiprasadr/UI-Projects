@@ -6,7 +6,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
-@XmlRootElement(name = "cluster")
+@XmlRootElement(name = "storelist")
 public class StoreList {
 	
 	
