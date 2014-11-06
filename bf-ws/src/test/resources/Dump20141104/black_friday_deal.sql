@@ -32,6 +32,8 @@ CREATE TABLE `deal` (
   `item` varchar(200) DEFAULT NULL,
   `early_bird` varchar(10) DEFAULT NULL,
   `rebate` varchar(10) DEFAULT NULL,
+  `img_url` varchar(500) DEFAULT NULL,
+  `product_url` varchar(500) DEFAULT NULL,
   `price` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

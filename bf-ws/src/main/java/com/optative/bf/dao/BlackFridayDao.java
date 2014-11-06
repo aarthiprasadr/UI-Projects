@@ -292,4 +292,69 @@ public class BlackFridayDao {
 		}
 
 	}
+
+	public StoreList getStoresForCategory(String categoryName) {
+		String query = "select distinct store from store_category_subcat where category = ?";
+		final List<String> storeNames = new ArrayList<String>();
+		try {
+			jdbcTemplate.query(query, new String[] { categoryName },
+					new RowMapper<String>() {
+
+						public String mapRow(ResultSet rs, int rowNum)
+								throws SQLException {
+							storeNames.add(rs.getString("store"));
+							return null;
+						}
+
+					});
+			return new StoreList(storeNames);
+		} catch (DataAccessException e) {
+			throw e;
+		}
+
+	}
+
+	public StoreList getStoresForSubCategory(String subCategoryName) {
+		String query = "select distinct store from store_category_subcat where sub_category = ?";
+		final List<String> storeNames = new ArrayList<String>();
+		try {
+			jdbcTemplate.query(query, new String[] { subCategoryName },
+					new RowMapper<String>() {
+
+						public String mapRow(ResultSet rs, int rowNum)
+								throws SQLException {
+							storeNames.add(rs.getString("store"));
+							return null;
+						}
+
+					});
+			return new StoreList(storeNames);
+		} catch (DataAccessException e) {
+			throw e;
+		}
+
+	}
+
+	public StoreList getStoresForCategoryAndSubCategory(String categoryName,
+			String subCategoryName) {
+		String query = "select distinct store from store_category_subcat where category= ? and sub_category = ?";
+		final List<String> storeNames = new ArrayList<String>();
+		try {
+			jdbcTemplate.query(query, new String[] { categoryName,
+					subCategoryName }, new RowMapper<String>() {
+
+				public String mapRow(ResultSet rs, int rowNum)
+						throws SQLException {
+					storeNames.add(rs.getString("store"));
+					return null;
+				}
+
+			});
+			return new StoreList(storeNames);
+		} catch (DataAccessException e) {
+			throw e;
+		}
+
+	}
+
 }

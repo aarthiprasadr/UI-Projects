@@ -119,19 +119,40 @@ public class ReportingController {
 		return daoImpl.getAllSubCategory();
 	}
 
-	@RequestMapping(value = "/store-config/storeName/{storeName}", method = RequestMethod.GET)
+	@RequestMapping(value = "/store-config/store/{storeName}", method = RequestMethod.GET)
 	public StoreConfig getStoreConfig(@PathVariable String storeName) {
 
 		return daoImpl.getStoreConfig(storeName);
 	}
 
-	@RequestMapping(value = "/category-config/storeName/{storeName}/category/{categoryName}", method = RequestMethod.GET)
+	@RequestMapping(value = "/category-config/store/{storeName}/category/{categoryName}", method = RequestMethod.GET)
 	public CategoryList getCategoryConfig(@PathVariable String storeName,
 			@PathVariable String categoryName) {
 
 		return daoImpl.getCategoryConfig(storeName, categoryName);
 	}
+	
+	@RequestMapping(value = "/stores/category/{categoryName}", method = RequestMethod.GET)
+	public StoreList getStoresForCategory(
+			@PathVariable String categoryName) {
 
+		return daoImpl.getStoresForCategory( categoryName);
+	}
+	
+	@RequestMapping(value = "/stores/subCategory/{subCategoryName}", method = RequestMethod.GET)
+	public StoreList getStoresForSubCategory(
+			@PathVariable String subCategoryName) {
+
+		return daoImpl.getStoresForSubCategory( subCategoryName);
+	}
+
+	@RequestMapping(value = "/stores/category/{categoryName}/subCategory/{subCategoryName}", method = RequestMethod.GET)
+	public StoreList getStoresForCategoryAndSubCategory(@PathVariable String categoryName,
+			@PathVariable String subCategoryName) {
+
+		return daoImpl.getStoresForCategoryAndSubCategory(categoryName, subCategoryName);
+	}
+	
 	/**
 	 * Handling of client errors.
 	 * 
