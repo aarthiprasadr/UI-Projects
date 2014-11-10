@@ -7,15 +7,6 @@ angular.module('bfApp.services', []).factory(
 
 			var bfAPI = {};
 			
-			bfAPI.addDeal = function($deal) {
-			  return $http({
-			        method: 'POST',
-			        headers: { 'content-type': 'application/json' },
-				    data: $deal,
-				    url: 'http://104.130.240.61:8080/bf-ws/addDeal'
-			  });
-			}
-
 			bfAPI.getDealsByStore = function($store) {
 				return $http({
 					method : 'GET',
