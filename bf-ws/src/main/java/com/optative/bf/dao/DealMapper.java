@@ -13,9 +13,12 @@ public class DealMapper implements RowMapper<Deal> {
 		Deal deal = new Deal();
 		deal.setStore(resultSet.getString("store"));
 		deal.setCategory(resultSet.getString("category"));
+		deal.setSub_category(resultSet.getString("sub_category"));
 		deal.setItem(resultSet.getString("item"));
 		deal.setEarly_bird(resultSet.getString("early_bird"));
 		deal.setRebate(resultSet.getString("rebate"));
+		deal.setImg_url(resultSet.getString("img_url"));
+		deal.setProduct_url(resultSet.getString("product_url"));
 		deal.setPrice(resultSet.getString("price"));
 		return deal;
 	}

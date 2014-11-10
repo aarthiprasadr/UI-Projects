@@ -22,6 +22,7 @@ import com.optative.bf.vo.CategoryConfig;
 import com.optative.bf.vo.CategoryList;
 import com.optative.bf.vo.Deal;
 import com.optative.bf.vo.DealList;
+import com.optative.bf.vo.DealWrapper;
 import com.optative.bf.vo.StoreConfig;
 import com.optative.bf.vo.StoreList;
 import com.optative.bf.vo.SubCategoryList;
@@ -40,25 +41,71 @@ public class BlackFridayDao {
 	@PostConstruct
 	public void init() {
 		jdbcTemplate = new JdbcTemplate(mysqldataSource);
-
 	}
-
-	public void addDeal(DealList deals) {
-
-		String statement = "INSERT INTO deal(store,category,item,early_bird,rebate,price) VALUES (?,?,?,?,?,?);";
+	
+	/*public Deal getDeal() {
+		Deal deal = new Deal();
+		deal.setStore("Store");
+		deal.setCategory("category");
+		deal.setSub_category("scategory");
+		deal.setEarly_bird("early_bird");
+		deal.setImg_url("url");
+		deal.setProduct_url("purl");
+		deal.setItem("item");
+		deal.setPrice("price");
+		deal.setRebate("rebate");
+		
+		return deal;
+	}
+	
+	public DealWrapper getDealWrapper() {
+		Deal deal = new Deal();
+		deal.setStore("Store");
+		deal.setCategory("category");
+		deal.setSub_category("scategory");
+		deal.setEarly_bird("early_bird");
+		deal.setImg_url("url");
+		deal.setProduct_url("purl");
+		deal.setItem("item");
+		deal.setPrice("price");
+		deal.setRebate("rebate");
+		
+		DealWrapper wrapper = new DealWrapper(deal);
+		
+		return wrapper;
+	}*/
+	
+	public void addDeals(DealList deals) {
+		String statement = "INSERT INTO deal(store, category, sub_category, item, early_bird, rebate, img_url, product_url, price) VALUES (?,?,?,?,?,?,?,?,?);";
 		try {
 			for (Deal deal : deals.getDeals()) {
 				jdbcTemplate
-						.update(statement, deal.getStore(), deal.getCategory(),
+						.update(statement, deal.getStore(), deal.getCategory(), deal.getSub_category(),
 								deal.getItem(), deal.getEarly_bird(),
-								deal.getRebate(), deal.getPrice());
+								deal.getRebate(), deal.getImg_url(), deal.getProduct_url(), deal.getPrice());
 			}
 		} catch (DataAccessException e) {
 			log.error("problem adding node metrics to database"
 					+ e.getMessage());
 			throw e;
 		}
-
+	}
+	
+	public void addDeal(DealWrapper dealwrapper) {
+		if(dealwrapper != null) {
+			Deal deal = dealwrapper.getDeal();
+			String statement = "INSERT INTO deal(store, category, sub_category, item, early_bird, rebate, img_url, product_url, price) VALUES (?,?,?,?,?,?,?,?,?);";
+			try {
+				jdbcTemplate
+						.update(statement, deal.getStore(), deal.getCategory(), deal.getSub_category(),
+								deal.getItem(), deal.getEarly_bird(),
+								deal.getRebate(), deal.getImg_url(), deal.getProduct_url(), deal.getPrice());
+			} catch (DataAccessException e) {
+				log.error("problem adding node metrics to database"
+						+ e.getMessage());
+				throw e;
+			}
+		}
 	}
 
 	public DealList getAllDeals(int marker, int limit) {
@@ -72,7 +119,7 @@ public class BlackFridayDao {
 			totalPages++;
 		}
 
-		String query = "SELECT  store, category, item, early_bird, rebate, price FROM black_friday.deal where id > ? and id <= ? order by store, category, item";
+		String query = "SELECT store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal where id > ? and id <= ? order by store, category, sub_category, item";
 		try {
 			List<Deal> list = jdbcTemplate.query(query, new Object[] {
 					startIndex, endIndex }, new DealMapper());
@@ -84,12 +131,10 @@ public class BlackFridayDao {
 		} catch (DataAccessException e) {
 			throw e;
 		}
-
 	}
 
 	public int getTotalCount() {
-
-		String query = "SELECT  count(*) FROM black_friday.deal ";
+		String query = "SELECT count(*) FROM black_friday.deal ";
 		try {
 			return jdbcTemplate.queryForInt(query);
 		} catch (DataAccessException e) {
@@ -98,8 +143,7 @@ public class BlackFridayDao {
 	}
 
 	public DealList getDealsByStore(String storeName) {
-
-		String query = "SELECT  store, category, item, early_bird, rebate, price FROM black_friday.deal where store = ? order by store, category, item ";
+		String query = "SELECT store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal where store = ? order by store, category, sub_category, item ";
 
 		try {
 			List<Deal> list = jdbcTemplate.query(query,
@@ -112,7 +156,7 @@ public class BlackFridayDao {
 
 	public DealList getDealsByStoreAndCategory(String storeName,
 			String categoryName) {
-		String query = "SELECT  store, category, item, early_bird, rebate, price FROM black_friday.deal where store = ? AND category = ? order by store, category, item ";
+		String query = "SELECT store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal where store = ? AND category = ? order by store, category, sub_category, item ";
 
 		try {
 			List<Deal> list = jdbcTemplate.query(query, new Object[] {
@@ -126,7 +170,7 @@ public class BlackFridayDao {
 	public DealList getDealsByStoreAndCategoryAndItem(String storeName,
 			String categoryName, String itemName) {
 
-		String query = "SELECT  store, category, item, early_bird, rebate, price FROM black_friday.deal where store = ? AND category = ? AND item = ? order by store, category, item ";
+		String query = "SELECT store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal where store = ? AND category = ? AND item = ? order by store, category, sub_category, item ";
 
 		try {
 			List<Deal> list = jdbcTemplate.query(query, new Object[] {
@@ -135,12 +179,11 @@ public class BlackFridayDao {
 		} catch (DataAccessException e) {
 			throw e;
 		}
-
 	}
 
 	public DealList getDealsByCategory(String categoryName) {
 
-		String query = "SELECT  store, category, item, early_bird, rebate, price FROM black_friday.deal where category = ? order by store, category, item ";
+		String query = "SELECT store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal where category = ? order by store, category, sub_category, item ";
 
 		try {
 			List<Deal> list = jdbcTemplate.query(query,
@@ -152,8 +195,7 @@ public class BlackFridayDao {
 	}
 
 	public DealList getDealsByItem(String itemName) {
-
-		String query = "SELECT  store, category, item, early_bird, rebate, price FROM black_friday.deal where item = ? order by store, category, item ";
+		String query = "SELECT store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal where item = ? order by store, category, sub_category, item ";
 
 		try {
 			List<Deal> list = jdbcTemplate.query(query,
@@ -166,8 +208,7 @@ public class BlackFridayDao {
 
 	public DealList getDealsByCategoryAndItem(String categoryName,
 			String itemName) {
-
-		String query = "SELECT  store, category, item, early_bird, rebate, price FROM black_friday.deal where category = ? and item = ? order by store, category, item ";
+		String query = "SELECT store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal where category = ? and item = ? order by store, category, sub_category, item ";
 
 		try {
 			List<Deal> list = jdbcTemplate.query(query, new Object[] {
@@ -179,8 +220,7 @@ public class BlackFridayDao {
 	}
 
 	public StoreList getAllStores() {
-
-		String query = "SELECT  name FROM black_friday.store order by name ";
+		String query = "SELECT name FROM black_friday.store order by name ";
 		final List<String> storeNames = new ArrayList<String>();
 		try {
 			jdbcTemplate.query(query, new RowMapper<String>() {
@@ -190,7 +230,6 @@ public class BlackFridayDao {
 					storeNames.add(rs.getString("name"));
 					return null;
 				}
-
 			});
 			return new StoreList(storeNames);
 		} catch (DataAccessException e) {
@@ -199,7 +238,6 @@ public class BlackFridayDao {
 	}
 
 	public CategoryList getAllCategory() {
-
 		String query = "SELECT  name FROM black_friday.category order by name";
 		final List<String> storeNames = new ArrayList<String>();
 		try {
@@ -219,7 +257,6 @@ public class BlackFridayDao {
 	}
 
 	public SubCategoryList getAllSubCategory() {
-
 		String query = "SELECT  name FROM black_friday.sub_category order by name ";
 		final List<String> storeNames = new ArrayList<String>();
 		try {
@@ -230,7 +267,6 @@ public class BlackFridayDao {
 					storeNames.add(rs.getString("name"));
 					return null;
 				}
-
 			});
 			return new SubCategoryList(storeNames);
 		} catch (DataAccessException e) {
@@ -261,13 +297,11 @@ public class BlackFridayDao {
 						}
 
 					});
-
 			return new StoreConfig(new ArrayList<CategoryConfig>(
 					configs.values()));
 		} catch (DataAccessException e) {
 			throw e;
 		}
-
 	}
 
 	public CategoryList getCategoryConfig(String storeName, String categoryName) {
@@ -290,7 +324,6 @@ public class BlackFridayDao {
 		} catch (DataAccessException e) {
 			throw e;
 		}
-
 	}
 
 	public StoreList getStoresForCategory(String categoryName) {
@@ -311,7 +344,6 @@ public class BlackFridayDao {
 		} catch (DataAccessException e) {
 			throw e;
 		}
-
 	}
 
 	public StoreList getStoresForSubCategory(String subCategoryName) {
@@ -332,7 +364,6 @@ public class BlackFridayDao {
 		} catch (DataAccessException e) {
 			throw e;
 		}
-
 	}
 
 	public StoreList getStoresForCategoryAndSubCategory(String categoryName,
@@ -354,7 +385,5 @@ public class BlackFridayDao {
 		} catch (DataAccessException e) {
 			throw e;
 		}
-
 	}
-
 }

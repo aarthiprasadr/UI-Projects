@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.optative.bf.dao.BlackFridayDao;
 import com.optative.bf.vo.CategoryList;
+import com.optative.bf.vo.Deal;
 import com.optative.bf.vo.DealList;
+import com.optative.bf.vo.DealWrapper;
 import com.optative.bf.vo.StoreConfig;
 import com.optative.bf.vo.StoreList;
 import com.optative.bf.vo.SubCategoryList;
@@ -42,12 +44,38 @@ public class ReportingController {
 	private static final Logger log = LoggerFactory
 			.getLogger(ReportingController.class);
 
-	@RequestMapping(value = "/deal", method = RequestMethod.POST)
-	public @ResponseBody void addDeal(@RequestBody DealList deal) {
+
+	/*@RequestMapping(value = "/Deal", method = RequestMethod.GET)
+	public @ResponseBody Deal getDeal() {
+
+		log.debug("writing node metrics to data base");
+		
+		return daoImpl.getDeal(); 
+	}
+	
+	@RequestMapping(value = "/DealWrapper", method = RequestMethod.GET)
+	public @ResponseBody DealWrapper getDealList() {
+
+		log.debug("writing node metrics to data base");
+		
+		return daoImpl.getDealWrapper(); 
+	}*/
+	
+	
+	@RequestMapping(value = "/addDeals", method = RequestMethod.POST)
+	public @ResponseBody void addDeals(@RequestBody DealList deal) {
+
+		log.debug("writing node metrics to data base");
+		daoImpl.addDeals(deal);
+	}
+	
+	@RequestMapping(value = "/addDeal", method = RequestMethod.POST)
+	public @ResponseBody void addDeal(@RequestBody DealWrapper deal) {
 
 		log.debug("writing node metrics to data base");
 		daoImpl.addDeal(deal);
 	}
+	
 
 	@RequestMapping(value = "/deals", method = RequestMethod.GET)
 	public @ResponseBody DealList getAllDeals(
