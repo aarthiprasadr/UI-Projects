@@ -12,5 +12,5 @@ angular.module('bfApp', [
    	when("/home", {templateUrl: "partials/Deals.html", controller: "AllDeals"}).
    	when("/addDeal", {templateUrl: "partials/addDeals.html", controller: "addDeals"}).
    	when("/pagenotfound", {templateUrl: "partials/pagenotfound.html", controller: "AllDeals"}).
-   	otherwise({redirectTo: '/pagenotfound'});
+   	otherwise({redirectTo: '/home'});
  }]);

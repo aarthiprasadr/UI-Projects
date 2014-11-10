@@ -22,7 +22,6 @@ import com.optative.bf.vo.CategoryConfig;
 import com.optative.bf.vo.CategoryList;
 import com.optative.bf.vo.Deal;
 import com.optative.bf.vo.DealList;
-import com.optative.bf.vo.DealWrapper;
 import com.optative.bf.vo.StoreConfig;
 import com.optative.bf.vo.StoreList;
 import com.optative.bf.vo.SubCategoryList;
@@ -42,8 +41,8 @@ public class BlackFridayDao {
 	public void init() {
 		jdbcTemplate = new JdbcTemplate(mysqldataSource);
 	}
-	
-	/*public Deal getDeal() {
+
+	public Deal getDeal() {
 		Deal deal = new Deal();
 		deal.setStore("Store");
 		deal.setCategory("category");
@@ -54,35 +53,31 @@ public class BlackFridayDao {
 		deal.setItem("item");
 		deal.setPrice("price");
 		deal.setRebate("rebate");
-		
+
 		return deal;
 	}
-	
-	public DealWrapper getDealWrapper() {
-		Deal deal = new Deal();
-		deal.setStore("Store");
-		deal.setCategory("category");
-		deal.setSub_category("scategory");
-		deal.setEarly_bird("early_bird");
-		deal.setImg_url("url");
-		deal.setProduct_url("purl");
-		deal.setItem("item");
-		deal.setPrice("price");
-		deal.setRebate("rebate");
-		
-		DealWrapper wrapper = new DealWrapper(deal);
-		
-		return wrapper;
-	}*/
-	
+
+	/*
+	 * public DealWrapper getDealWrapper() { Deal deal = new Deal();
+	 * deal.setStore("Store"); deal.setCategory("category");
+	 * deal.setSub_category("scategory"); deal.setEarly_bird("early_bird");
+	 * deal.setImg_url("url"); deal.setProduct_url("purl");
+	 * deal.setItem("item"); deal.setPrice("price"); deal.setRebate("rebate");
+	 * 
+	 * DealWrapper wrapper = new DealWrapper(deal);
+	 * 
+	 * return wrapper; }
+	 */
+
 	public void addDeals(DealList deals) {
 		String statement = "INSERT INTO deal(store, category, sub_category, item, early_bird, rebate, img_url, product_url, price) VALUES (?,?,?,?,?,?,?,?,?);";
 		try {
 			for (Deal deal : deals.getDeals()) {
-				jdbcTemplate
-						.update(statement, deal.getStore(), deal.getCategory(), deal.getSub_category(),
-								deal.getItem(), deal.getEarly_bird(),
-								deal.getRebate(), deal.getImg_url(), deal.getProduct_url(), deal.getPrice());
+				jdbcTemplate.update(statement, deal.getStore(),
+						deal.getCategory(), deal.getSub_category(),
+						deal.getItem(), deal.getEarly_bird(), deal.getRebate(),
+						deal.getImg_url(), deal.getProduct_url(),
+						deal.getPrice());
 			}
 		} catch (DataAccessException e) {
 			log.error("problem adding node metrics to database"
@@ -90,22 +85,148 @@ public class BlackFridayDao {
 			throw e;
 		}
 	}
-	
-	public void addDeal(DealWrapper dealwrapper) {
-		if(dealwrapper != null) {
-			Deal deal = dealwrapper.getDeal();
-			String statement = "INSERT INTO deal(store, category, sub_category, item, early_bird, rebate, img_url, product_url, price) VALUES (?,?,?,?,?,?,?,?,?);";
+
+	public void addDeal(Deal deal) {
+		String statement = "INSERT INTO deal(store, category, sub_category, item, early_bird, rebate, img_url, product_url, price) VALUES (?,?,?,?,?,?,?,?,?);";
+		try {
+			jdbcTemplate.update(statement, deal.getStore(), deal.getCategory(),
+					deal.getSub_category(), deal.getItem(),
+					deal.getEarly_bird(), deal.getRebate(), deal.getImg_url(),
+					deal.getProduct_url(), deal.getPrice());
+		} catch (DataAccessException e) {
+			log.error("problem adding node metrics to database"
+					+ e.getMessage());
+			throw e;
+		}
+		//addDetails(deal);
+	}
+
+	public void addDetails(Deal deal) {
+
+		String store = deal.getStore();
+		String category = deal.getCategory();
+		String subCategory = deal.getSub_category();
+
+		addStore(store);
+		addCategory(category);
+		addSubCategory(subCategory);
+		addStoreCategory(store, subCategory);
+		addStoreCategorySubCategory(store, category, subCategory);
+
+	}
+
+	public void addStore(String store) {
+		if (!isStoreExists(store)) {
+			String statement = "INSERT INTO store(name) VALUES (?)";
 			try {
-				jdbcTemplate
-						.update(statement, deal.getStore(), deal.getCategory(), deal.getSub_category(),
-								deal.getItem(), deal.getEarly_bird(),
-								deal.getRebate(), deal.getImg_url(), deal.getProduct_url(), deal.getPrice());
+				jdbcTemplate.update(statement, store);
+
 			} catch (DataAccessException e) {
-				log.error("problem adding node metrics to database"
-						+ e.getMessage());
-				throw e;
+
 			}
 		}
+	}
+
+	public boolean isStoreExists(String store) {
+
+		String sql = "SELECT EXISTS (SELECT name FROM black_friday.store where name = ?);";
+		try {
+			return jdbcTemplate.queryForObject(sql, Boolean.class);
+		} catch (DataAccessException e) {
+
+		}
+		return false;
+
+	}
+
+	public void addCategory(String category) {
+		if (!isCategoryExists(category)) {
+			String statement = "INSERT INTO category(name) VALUES (?)";
+			try {
+				jdbcTemplate.update(statement, category);
+
+			} catch (DataAccessException e) {
+
+			}
+		}
+	}
+
+	public boolean isCategoryExists(String category) {
+		String sql = "SELECT EXISTS (SELECT name FROM black_friday.category where name = ?);";
+		try {
+			return jdbcTemplate.queryForObject(sql, new String[] { category },
+					Boolean.class);
+		} catch (DataAccessException e) {
+		}
+		return false;
+	}
+
+	public void addSubCategory(String subCategory) {
+		if (!isSubCategoryExists(subCategory)) {
+			String statement = "INSERT INTO sub_category(name) VALUES (?)";
+			try {
+				jdbcTemplate.update(statement, subCategory);
+
+			} catch (DataAccessException e) {
+
+			}
+		}
+	}
+
+	public boolean isSubCategoryExists(String subCategory) {
+		String sql = "SELECT EXISTS (SELECT name FROM black_friday.sub_category where name = ?)";
+		try {
+			return jdbcTemplate.queryForObject(sql,
+					new String[] { subCategory }, Boolean.class);
+		} catch (DataAccessException e) {
+		}
+		return false;
+	}
+
+	public void addStoreCategory(String store, String category) {
+		if (!isStoreCategoryExists(store, category)) {
+			String statement = "INSERT INTO sub_category(store, category) VALUES (?, ?)";
+			try {
+				jdbcTemplate.update(statement, store, category);
+
+			} catch (DataAccessException e) {
+
+			}
+		}
+	}
+
+	public boolean isStoreCategoryExists(String store, String category) {
+		String sql = "SELECT EXISTS (SELECT * FROM black_friday.store_category where store = ? AND category = ?)";
+		try {
+			return jdbcTemplate.queryForObject(sql, new String[] { store,
+					store, category }, Boolean.class);
+		} catch (DataAccessException e) {
+		}
+		return false;
+	}
+
+	public void addStoreCategorySubCategory(String store, String category,
+			String subCategory) {
+		if (isStoreCategorySubCategoryExists(store, category, subCategory)) {
+			String statement = "INSERT INTO store_category_subcat(store, category, sub_category) VALUES (?, ?, ?)";
+			try {
+				jdbcTemplate.update(statement, store, category);
+
+			} catch (DataAccessException e) {
+
+			}
+		}
+	}
+
+	private boolean isStoreCategorySubCategoryExists(String store,
+			String category, String subCategory) {
+		String sql = "SELECT EXISTS (SELECT * FROM black_friday.store_category_subcat where store = ? AND category = ? AND sub_category = ?)";
+		try {
+			return jdbcTemplate.queryForObject(sql, new String[] { store,
+					category, subCategory }, Boolean.class);
+		} catch (DataAccessException e) {
+		}
+		return false;
 	}
 
 	public DealList getAllDeals(int marker, int limit) {

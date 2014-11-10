@@ -11,8 +11,8 @@ angular.module('bfApp.services', []).factory(
 			  return $http({
 			        method: 'POST',
 			        headers: { 'content-type': 'application/json' },
-				    data: {"deal":$deal},
-				    url: 'http://localhost:8080/bf-ws/addDeal'
+				    data: $deal,
+				    url: 'http://104.130.240.61:8080/bf-ws/addDeal'
 			  });
 			}
 
@@ -22,7 +22,7 @@ angular.module('bfApp.services', []).factory(
 					headers : {
 						'accept' : 'application/json'
 					},
-					url : 'http://localhost:8080/bf-ws/deals/store/' + $store
+					url : 'http://104.130.240.61:8080/bf-ws/deals/store/' + $store
 				});
 			}
 
@@ -33,7 +33,7 @@ angular.module('bfApp.services', []).factory(
 						headers : {
 							'accept' : 'application/json'
 						},
-						url : 'http://localhost:8080/bf-ws/deals/category/'
+						url : 'http://104.130.240.61:8080/bf-ws/deals/category/'
 								+ $category
 					});
 				} else {
@@ -42,7 +42,7 @@ angular.module('bfApp.services', []).factory(
 						headers : {
 							'accept' : 'application/json'
 						},
-						url : 'http://localhost:8080/bf-ws/deals/store/'
+						url : 'http://104.130.240.61:8080/bf-ws/deals/store/'
 								+ $store + '/category/' + $category
 
 					});
@@ -55,7 +55,7 @@ angular.module('bfApp.services', []).factory(
 					headers : {
 						'accept' : 'application/json'
 					},
-					url : 'http://localhost:8080/bf-ws/deals'
+					url : 'http://104.130.240.61:8080/bf-ws/deals'
 				});
 			}
 
@@ -65,7 +65,7 @@ angular.module('bfApp.services', []).factory(
 					headers : {
 						'accept' : 'application/json'
 					},
-					url : 'http://localhost:8080/bf-ws/stores'
+					url : 'http://104.130.240.61:8080/bf-ws/stores'
 				});
 			}
 
@@ -75,7 +75,7 @@ angular.module('bfApp.services', []).factory(
 					headers : {
 						'accept' : 'application/json'
 					},
-					url : 'http://localhost:8080/bf-ws/category'
+					url : 'http://104.130.240.61:8080/bf-ws/category'
 				});
 			}
 			
@@ -85,7 +85,7 @@ angular.module('bfApp.services', []).factory(
 					headers : {
 						'accept' : 'application/json'
 					},
-					url : 'http://localhost:8080/bf-ws/sub-category'
+					url : 'http://104.130.240.61:8080/bf-ws/sub-category'
 				});
 			}
 
@@ -95,7 +95,7 @@ angular.module('bfApp.services', []).factory(
 					headers : {
 						'accept' : 'application/json'
 					},
-					url : 'http://localhost:8080/bf-ws/store-config/store/'
+					url : 'http://104.130.240.61:8080/bf-ws/store-config/store/'
 							+ $store
 				});
 			}
@@ -107,7 +107,7 @@ angular.module('bfApp.services', []).factory(
 					headers : {
 						'accept' : 'application/json'
 					},
-					url : 'http://localhost:8080/bf-ws/deals/store/'+$store+'/category/'+$category
+					url : 'http://104.130.240.61:8080/bf-ws/deals/store/'+$store+'/category/'+$category
 				});
 			}
 
@@ -117,7 +117,7 @@ angular.module('bfApp.services', []).factory(
 					headers : {
 						'accept' : 'application/json'
 					},
-					url : 'http://localhost:8080/bf-ws/stores/category/'+$category
+					url : 'http://104.130.240.61:8080/bf-ws/stores/category/'+$category
 				});
 			}
 

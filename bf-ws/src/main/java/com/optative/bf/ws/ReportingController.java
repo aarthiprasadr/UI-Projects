@@ -21,7 +21,6 @@ import com.optative.bf.dao.BlackFridayDao;
 import com.optative.bf.vo.CategoryList;
 import com.optative.bf.vo.Deal;
 import com.optative.bf.vo.DealList;
-import com.optative.bf.vo.DealWrapper;
 import com.optative.bf.vo.StoreConfig;
 import com.optative.bf.vo.StoreList;
 import com.optative.bf.vo.SubCategoryList;
@@ -45,14 +44,14 @@ public class ReportingController {
 			.getLogger(ReportingController.class);
 
 
-	/*@RequestMapping(value = "/Deal", method = RequestMethod.GET)
+	@RequestMapping(value = "/Deal", method = RequestMethod.GET)
 	public @ResponseBody Deal getDeal() {
 
 		log.debug("writing node metrics to data base");
 		
 		return daoImpl.getDeal(); 
 	}
-	
+/*	
 	@RequestMapping(value = "/DealWrapper", method = RequestMethod.GET)
 	public @ResponseBody DealWrapper getDealList() {
 
@@ -70,11 +69,14 @@ public class ReportingController {
 	}
 	
 	@RequestMapping(value = "/addDeal", method = RequestMethod.POST)
-	public @ResponseBody void addDeal(@RequestBody DealWrapper deal) {
+	public @ResponseBody void addDeal(@RequestBody Deal deal) {
 
 		log.debug("writing node metrics to data base");
 		daoImpl.addDeal(deal);
 	}
+	
+	
+	
 	
 
 	@RequestMapping(value = "/deals", method = RequestMethod.GET)
