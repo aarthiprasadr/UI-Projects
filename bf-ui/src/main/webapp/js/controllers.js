@@ -1,35 +1,57 @@
 angular.module('bfApp.controllers', []).
 
-controller('AllDeals', function($scope, bfService) {
-	$scope.nameFilter = null;
-	$scope.dealList = [];
+controller(
+		'AllDeals',
+		function($scope, bfService) {
+			$scope.nameFilter = null;
+			$scope.dealList = [];
 
-	$scope.searchFilter = function(deal) {
-		var re = new RegExp($scope.nameFilter, 'i');
-		return !$scope.nameFilter || re.test(deal.item);
-	};
+			$scope.currentPage = 0;
+			$scope.pageSize = 50;
 
-	bfService.getDeals().success(function(response) {
-		$scope.dealList = response.deals;
-	});
+			$scope.searchFilter = function(deal) {
+				var re = new RegExp($scope.nameFilter, 'i');
+				return !$scope.nameFilter || re.test(deal.item)
+						|| re.test(deal.store) || re.test(deal.category)
+						|| re.test(deal.sub_category)
+						|| re.test(deal.early_bird) || re.test(deal.rebate)
+						|| re.test(deal.price);
+			};
 
-	$scope.storeList = [];
+			bfService.getDeals().success(function(response) {
+				$scope.dealList = response.deals;
+			});
 
-	bfService.getStores().success(function(response) {
-		$scope.storeList = response.storeNames;
-	});
+			$scope.numberOfPages = function() {
+				return Math.ceil($scope.dealList.length / $scope.pageSize);
+			};
 
-	$scope.categoryList = [];
+			$scope.storeList = [];
 
-	bfService.getCategories().success(function(response) {
-		$scope.categoryList = response.categoryNames;
-	});
+			bfService.getStores().success(function(response) {
+				$scope.storeList = response.storeNames;
+			});
+
+			$scope.categoryList = [];
+
+			bfService.getCategories().success(function(response) {
+				$scope.categoryList = response.categoryNames;
+			});
+		}).
+
+filter('startFrom', function() {
+	return function(input, start) {
+		start = +start; // parse to int
+		return input.slice(start);
+	}
 }).
 
-controller('StoreDeals',
+controller(
+		'StoreDeals',
 		function($scope, $route, $location, $routeParams, bfService) {
 			var category = $routeParams.category;
 			var store = $routeParams.store;
+
 			$scope.selectedStore = store;
 			$scope.selectedCategory = category;
 			$scope.nameFilter = null;
@@ -38,7 +60,17 @@ controller('StoreDeals',
 
 			$scope.searchFilter = function(deal) {
 				var re = new RegExp($scope.nameFilter, 'i');
-				return !$scope.nameFilter || re.test(deal.item) || re.test(deal.store) || re.test(deal.category) || re.test(deal.early_bird) || re.test(deal.rebate) || re.test(deal.price);
+				return !$scope.nameFilter || re.test(deal.item)
+				|| re.test(deal.store) || re.test(deal.category)
+				|| re.test(deal.sub_category)
+				|| re.test(deal.early_bird) || re.test(deal.rebate)
+				|| re.test(deal.price);
+			};
+
+			$scope.currentPage = 0;
+			$scope.pageSize = 50;
+			$scope.numberOfPages = function() {
+				return Math.ceil($scope.dealList.length / $scope.pageSize);
 			};
 
 			bfService.getDealsByStore(store).success(function(response) {
@@ -61,20 +93,30 @@ controller(
 			$scope.selectedCategory = category;
 			$scope.dealList = [];
 			$scope.storeList = [];
-			
+
 			$scope.searchFilter = function(deal) {
 				var re = new RegExp($scope.nameFilter, 'i');
-				return !$scope.nameFilter || re.test(deal.item) || re.test(deal.store) || re.test(deal.category) || re.test(deal.early_bird) || re.test(deal.rebate) || re.test(deal.price);
+				return !$scope.nameFilter || re.test(deal.item)
+				|| re.test(deal.store) || re.test(deal.category)
+				|| re.test(deal.sub_category)
+				|| re.test(deal.early_bird) || re.test(deal.rebate)
+				|| re.test(deal.price);
 			};
 
 			bfService.getDealsByCategory(category, store).success(
-				function(response) {
-					$scope.dealList = response.deals;
+					function(response) {
+						$scope.dealList = response.deals;
 			});
-						
+
 			bfService.getStoresByCategory(category).success(function(response) {
 				$scope.storeList = response.storeList.storeNames;
 			});
+
+			$scope.currentPage = 0;
+			$scope.pageSize = 50;
+			$scope.numberOfPages = function() {
+				return Math.ceil($scope.dealList.length / $scope.pageSize);
+			};
 		}).
 
 controller(
@@ -90,11 +132,21 @@ controller(
 
 			$scope.searchFilter = function(deal) {
 				var re = new RegExp($scope.nameFilter, 'i');
-				return !$scope.nameFilter || re.test(deal.item) || re.test(deal.store) || re.test(deal.category) || re.test(deal.early_bird) || re.test(deal.rebate) || re.test(deal.price);
+				return !$scope.nameFilter || re.test(deal.item)
+				|| re.test(deal.store) || re.test(deal.category)
+				|| re.test(deal.sub_category)
+				|| re.test(deal.early_bird) || re.test(deal.rebate)
+				|| re.test(deal.price);
 			};
 
 			bfService.getDealsByStoreCategory(store, category).success(
-				function(response) {
-					$scope.dealList = response.dealList.deals;
-				});
+					function(response) {
+						$scope.dealList = response.dealList.deals;
+			});
+
+			$scope.currentPage = 0;
+			$scope.pageSize = 50;
+			$scope.numberOfPages = function() {
+				return Math.ceil($scope.dealList.length / $scope.pageSize);
+			};
 		});

@@ -82,7 +82,7 @@ public class ReportingController {
 	@RequestMapping(value = "/deals", method = RequestMethod.GET)
 	public @ResponseBody DealList getAllDeals(
 			@RequestParam(required = false, value = MARKER, defaultValue = "1") int marker,
-			@RequestParam(required = false, value = LIMIT, defaultValue = "50") int limit) {
+			@RequestParam(required = false, value = LIMIT, defaultValue = "50000") int limit) {
 
 		return daoImpl.getAllDeals(marker, limit);
 	}

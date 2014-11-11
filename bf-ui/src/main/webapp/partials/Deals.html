@@ -80,34 +80,31 @@
 	</div>
 
 	<table class="table">
-		<!-- <ul class="pager">
-			<li class="previous"><a href="#"><< Previous</a></li>
-			<li class="next"><a href="#">Next >></a></li>
-		</ul>
 
-		<ul class="pagination">
-			<li><a href="#"><<</a></li>
-			<li class="active"><a href="#">1</a></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
-			<li><a href="#">4</a></li>
-			<li><a href="#">5</a></li>
-			<li><a href="#">>></a></li>
-		</ul> -->
+		
 		<thead>
+			<ul class="pager">
+			<li><button class="btn btn-info" ng-disabled="currentPage == 0"
+					ng-click="currentPage=currentPage-1">Previous</button></li> Displaying
+			{{currentPage+1}} of {{numberOfPages()}} Pages
+			<li><button class="btn btn-info"
+					ng-disabled="currentPage >= data.length/pageSize - 1"
+					ng-click="currentPage=currentPage+1">Next</button></li>
+		</ul>
 			<tr>
 				<th class="info" style="text-align: center"></th>
 				<th class="info" style="text-align: center">Store</th>
 				<th class="info" style="text-align: center">Category</th>
 				<th class="info" style="text-align: center">Sub-Category</th>
 				<th class="info" style="text-align: center">Item</th>
-				<th class="info" style="text-align: center">Early Bird</th>				
+				<th class="info" style="text-align: center">Early Bird</th>
 				<th class="info" style="text-align: center">Price ($)</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="deal in dealList | filter: searchFilter">
-				<td><img ng-src="{{deal.img_url}}" height="100" width="100"/></td>
+			<tr
+				ng-repeat="deal in dealList | filter: searchFilter | startFrom:currentPage*pageSize | limitTo:pageSize"">
+				<td><img ng-src="{{deal.img_url}}" height="100" width="100" /></td>
 				<td>{{deal.store}}</td>
 				<td>{{deal.category}}</td>
 				<td>{{deal.category}}</td>
