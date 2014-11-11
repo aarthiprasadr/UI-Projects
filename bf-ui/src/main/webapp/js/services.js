@@ -6,15 +6,6 @@ angular.module('bfApp.services', []).factory(
 		function($http) {
 
 			var bfAPI = {};
-			
-			bfAPI.addDeal = function($deal) {
-			  return $http({
-			        method: 'POST',
-			        headers: { 'content-type': 'application/json' },
-				    data: $deal,
-				    url: 'http://104.130.240.61:8080/bf-ws/addDeal'
-			  });
-			}
 
 			bfAPI.getDealsByStore = function($store) {
 				return $http({
@@ -22,7 +13,7 @@ angular.module('bfApp.services', []).factory(
 					headers : {
 						'accept' : 'application/json'
 					},
-					url : 'http://104.130.240.61:8080/bf-ws/deals/store/' + $store
+					url : 'http://www.fridaywallet.com/bf-ws/deals/store/' + $store
 				});
 			}
 
@@ -33,7 +24,7 @@ angular.module('bfApp.services', []).factory(
 						headers : {
 							'accept' : 'application/json'
 						},
-						url : 'http://104.130.240.61:8080/bf-ws/deals/category/'
+						url : 'http://www.fridaywallet.com/bf-ws/deals/category/'
 								+ $category
 					});
 				} else {
@@ -42,7 +33,7 @@ angular.module('bfApp.services', []).factory(
 						headers : {
 							'accept' : 'application/json'
 						},
-						url : 'http://104.130.240.61:8080/bf-ws/deals/store/'
+						url : 'http://www.fridaywallet.com/bf-ws/deals/store/'
 								+ $store + '/category/' + $category
 
 					});
@@ -55,7 +46,7 @@ angular.module('bfApp.services', []).factory(
 					headers : {
 						'accept' : 'application/json'
 					},
-					url : 'http://104.130.240.61:8080/bf-ws/deals'
+					url : 'http://www.fridaywallet.com/bf-ws/deals'
 				});
 			}
 
@@ -65,7 +56,7 @@ angular.module('bfApp.services', []).factory(
 					headers : {
 						'accept' : 'application/json'
 					},
-					url : 'http://104.130.240.61:8080/bf-ws/stores'
+					url : 'http://www.fridaywallet.com/bf-ws/stores'
 				});
 			}
 
@@ -75,7 +66,7 @@ angular.module('bfApp.services', []).factory(
 					headers : {
 						'accept' : 'application/json'
 					},
-					url : 'http://104.130.240.61:8080/bf-ws/category'
+					url : 'http://www.fridaywallet.com/bf-ws/category'
 				});
 			}
 			
@@ -85,7 +76,7 @@ angular.module('bfApp.services', []).factory(
 					headers : {
 						'accept' : 'application/json'
 					},
-					url : 'http://104.130.240.61:8080/bf-ws/sub-category'
+					url : 'http://www.fridaywallet.com/bf-ws/sub-category'
 				});
 			}
 
@@ -95,7 +86,7 @@ angular.module('bfApp.services', []).factory(
 					headers : {
 						'accept' : 'application/json'
 					},
-					url : 'http://104.130.240.61:8080/bf-ws/store-config/store/'
+					url : 'http://www.fridaywallet.com/bf-ws/store-config/store/'
 							+ $store
 				});
 			}
@@ -107,7 +98,7 @@ angular.module('bfApp.services', []).factory(
 					headers : {
 						'accept' : 'application/json'
 					},
-					url : 'http://104.130.240.61:8080/bf-ws/deals/store/'+$store+'/category/'+$category
+					url : 'http://www.fridaywallet.com/bf-ws/deals/store/'+$store+'/category/'+$category
 				});
 			}
 
@@ -117,7 +108,7 @@ angular.module('bfApp.services', []).factory(
 					headers : {
 						'accept' : 'application/json'
 					},
-					url : 'http://104.130.240.61:8080/bf-ws/stores/category/'+$category
+					url : 'http://www.fridaywallet.com/bf-ws/stores/category/'+$category
 				});
 			}
 
