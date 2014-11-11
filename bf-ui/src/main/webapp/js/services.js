@@ -6,7 +6,6 @@ angular.module('bfApp.services', []).factory(
 		function($http) {
 
 			var bfAPI = {};
-
 			bfAPI.getDealsByStore = function($store) {
 				return $http({
 					method : 'GET',
