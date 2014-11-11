@@ -45,7 +45,7 @@ angular.module('bfApp.services', []).factory(
 					headers : {
 						'accept' : 'application/json'
 					},
-					url : 'http://www.fridaywallet.com/bf-ws/deals'
+					url : 'http://www.fridaywallet.com/bf-ws/deals?limit=50000'
 				});
 			}
 
