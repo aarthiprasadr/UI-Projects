@@ -9,29 +9,40 @@
 <div class="col-md-3">
 	<!-- Deal Store Well -->
 	<div class="well">
-		<h4>Stores</h4>
+		<h4>
+			Stores <span ng-show="selectedStore"> <span
+				ng-show="selectedCategory"> <a
+					class="glyphicon glyphicon-remove-circle"
+					href="#/category/{{selectedCategory}}" />
+			</span> <span ng-show="!selectedCategory"> <a
+					class="glyphicon glyphicon-remove-circle" href="#/home" />
+			</span>
+			</span>
+		</h4>
 		<div class="row">
 			<div class="col-lg-10">
 				<ul class="list-unstyled">
-					<div ng-show="selectedStore">
-						<div ng-show="selectedCategory">
-							<li><a href="#/category/{{selectedCategory}}"
-								style="color: red">All Stores</a></li>
-						</div>
-						<div ng-show="!selectedCategory">
-							<li><a href="#/home" style="color: red">All Stores</a></li>
-						</div>
-
-					</div>
 					<div ng-show="selectedCategory">
-						<div ng-repeat="store in storeList">
-							<li><a
-								href="#/store/{{store}}/category/{{selectedCategory}}">{{store}}</a></li>
+						<div ng-show="storeList">
+							<input type="text" class="form-control" ng-model="storeFilter"
+								placeholder="Search Store..." />
+							<div style="width: 220px; height: 100px; overflow: scroll;">
+								<div ng-repeat="store in storeList | filter: storeSearchFilter">
+									<li><a
+										href="#/store/{{store}}/category/{{selectedCategory}}">{{store}}</a></li>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div ng-show="!selectedCategory">
-						<div ng-repeat="store in storeList">
-							<li><a href="#/store/{{store}}">{{store}}</a></li>
+						<div ng-show="storeList">
+							<input type="text" class="form-control" ng-model="storeFilter"
+								placeholder="Search Store..." />
+							<div style="width: 220px; height: 100px; overflow: scroll;">
+								<div ng-repeat="store in storeList | filter: storeSearchFilter">
+									<li><a href="#/store/{{store}}">{{store}}</a></li>
+								</div>
+							</div>
 						</div>
 					</div>
 				</ul>
@@ -41,36 +52,48 @@
 
 	<!-- Deal Categories Well -->
 	<div class="well">
-		<h4>Categories</h4>
+		<h4>
+			Categories <span ng-show="selectedCategory"> <span
+				ng-show="selectedStore"><a href="#/store/{{selectedStore}}"
+					class="glyphicon glyphicon-remove-circle" /></span> <span
+				ng-show="!selectedStore"> <a href="#/home"
+					class="glyphicon glyphicon-remove-circle" /></span>
+			</span>
+		</h4>
 		<div class="row">
 			<div class="col-lg-10">
 				<ul class="list-unstyled">
-					<div ng-show="selectedCategory">
-						<div ng-show="selectedStore">
-							<li><a href="#/store/selectedStore" style="color: red">All
-									Categories</a></li>
-						</div>
-						<div ng-show="!selectedStore">
-							<li><a href="#/home" style="color: red">All Categories</a></li>
-						</div>
-					</div>
 					<div ng-show="selectedStore">
-						<div ng-repeat="category in categoryList">
-							<li><a
-								href="#/store/{{selectedStore}}/category/{{category.categoryName}}">{{category.categoryName}}</a></li>
+						<div ng-show="categoryList">
+							<input type="text" class="form-control" ng-model="categoryFilter"
+								placeholder="Search Category..." />
+							<div style="width: 220px; height: 100px; overflow: scroll;">
+								<div
+									ng-repeat="category in categoryList  | filter: categorySearchFilter">
+									<li><a
+										href="#/store/{{selectedStore}}/category/{{category.categoryName}}">{{category.categoryName}}</a></li>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div ng-show="!selectedStore">
-						<div ng-repeat="category in categoryList">
-							<li><a href="#/category/{{category}}">{{category}}</a></li>
+						<div ng-show="categoryList">
+							<input type="text" class="form-control" ng-model="categoryFilter"
+								placeholder="Search Category..." />
+							<div style="width: 220px; height: 100px; overflow: scroll;">
+								<div
+									ng-repeat="category in categoryList  | filter: categorySearchFilter">
+									<li><a href="#/category/{{category}}">{{category}}</a></li>
+								</div>
+							</div>
 						</div>
 					</div>
+				</ul>
 			</div>
-			</ul>
 		</div>
 	</div>
 </div>
-</div>
+
 <div class="col-lg-9">
 	<div class="well">
 		<div class="input-group">
@@ -80,17 +103,15 @@
 	</div>
 
 	<table class="table">
-
-		
 		<thead>
 			<ul class="pager">
-			<li><button class="btn btn-info" ng-disabled="currentPage == 0"
-					ng-click="currentPage=currentPage-1">Previous</button></li> Displaying
-			{{currentPage+1}} of {{numberOfPages()}} Pages
-			<li><button class="btn btn-info"
-					ng-disabled="currentPage >= data.length/pageSize - 1"
-					ng-click="currentPage=currentPage+1">Next</button></li>
-		</ul>
+				<li><button class="btn btn-info" ng-disabled="currentPage == 0"
+						ng-click="currentPage=currentPage-1">Previous</button></li> Displaying
+				{{currentPage+1}} of {{numberOfPages()}} Pages
+				<li><button class="btn btn-info"
+						ng-disabled="currentPage >= data.length/pageSize - 1"
+						ng-click="currentPage=currentPage+1">Next</button></li>
+			</ul>
 			<tr>
 				<th class="info" style="text-align: center"></th>
 				<th class="info" style="text-align: center">Store</th>
