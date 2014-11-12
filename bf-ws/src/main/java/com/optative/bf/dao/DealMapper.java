@@ -11,6 +11,7 @@ public class DealMapper implements RowMapper<Deal> {
 
 	public Deal mapRow(ResultSet resultSet, int rowNum) throws SQLException {
 		Deal deal = new Deal();
+		deal.setId(resultSet.getInt("id"));
 		deal.setStore(resultSet.getString("store"));
 		deal.setCategory(resultSet.getString("category"));
 		deal.setSub_category(resultSet.getString("sub_category"));

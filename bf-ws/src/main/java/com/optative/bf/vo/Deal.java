@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "deals")
 public class Deal {
 
+	private int id;
 	private String store;
 	private String category;
 	private String sub_category;
@@ -85,6 +86,14 @@ public class Deal {
 
 	public void setProduct_url(String product_url) {
 		this.product_url = product_url;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

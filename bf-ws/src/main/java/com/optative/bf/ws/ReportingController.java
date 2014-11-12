@@ -51,15 +51,6 @@ public class ReportingController {
 		
 		return daoImpl.getDeal(); 
 	}
-/*	
-	@RequestMapping(value = "/DealWrapper", method = RequestMethod.GET)
-	public @ResponseBody DealWrapper getDealList() {
-
-		log.debug("writing node metrics to data base");
-		
-		return daoImpl.getDealWrapper(); 
-	}*/
-	
 	
 	@RequestMapping(value = "/addDeals", method = RequestMethod.POST)
 	public @ResponseBody void addDeals(@RequestBody DealList deal) {

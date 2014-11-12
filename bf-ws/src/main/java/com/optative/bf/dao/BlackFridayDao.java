@@ -44,32 +44,21 @@ public class BlackFridayDao {
 
 	public Deal getDeal() {
 		Deal deal = new Deal();
-		deal.setStore("Store");
-		deal.setCategory("category");
-		deal.setSub_category("scategory");
-		deal.setEarly_bird("early_bird");
-		deal.setImg_url("url");
-		deal.setProduct_url("purl");
-		deal.setItem("item");
-		deal.setPrice("price");
-		deal.setRebate("rebate");
+		deal.setStore("ZZZZZZZ");
+		deal.setCategory("ZZZZ");
+		deal.setSub_category("ZZZZ");
+		deal.setEarly_bird("early_birdzzzz");
+		deal.setImg_url("urlzzz");
+		deal.setProduct_url("purlzzz");
+		deal.setItem("itemzzz");
+		deal.setPrice("pricezzz");
+		deal.setRebate("rebatezzzz");
 
 		return deal;
 	}
 
-	/*
-	 * public DealWrapper getDealWrapper() { Deal deal = new Deal();
-	 * deal.setStore("Store"); deal.setCategory("category");
-	 * deal.setSub_category("scategory"); deal.setEarly_bird("early_bird");
-	 * deal.setImg_url("url"); deal.setProduct_url("purl");
-	 * deal.setItem("item"); deal.setPrice("price"); deal.setRebate("rebate");
-	 * 
-	 * DealWrapper wrapper = new DealWrapper(deal);
-	 * 
-	 * return wrapper; }
-	 */
-
 	public void addDeals(DealList deals) {
+		
 		String statement = "INSERT INTO deal(store, category, sub_category, item, early_bird, rebate, img_url, product_url, price) VALUES (?,?,?,?,?,?,?,?,?);";
 		try {
 			for (Deal deal : deals.getDeals()) {
@@ -87,6 +76,7 @@ public class BlackFridayDao {
 	}
 
 	public void addDeal(Deal deal) {
+		if(deal.getId() == 0){
 		String statement = "INSERT INTO deal(store, category, sub_category, item, early_bird, rebate, img_url, product_url, price) VALUES (?,?,?,?,?,?,?,?,?);";
 		try {
 			jdbcTemplate.update(statement, deal.getStore(), deal.getCategory(),
@@ -97,6 +87,20 @@ public class BlackFridayDao {
 			log.error("problem adding node metrics to database"
 					+ e.getMessage());
 			throw e;
+		}
+		}
+		else{
+			String statement = "UPDATE deal SET store = ?, category = ?, sub_category = ?, item = ?, early_bird = ?, rebate = ?, img_url = ?, product_url = ?, price = ? WHERE id = ?;";
+			try {
+				jdbcTemplate.update(statement, deal.getStore(), deal.getCategory(),
+						deal.getSub_category(), deal.getItem(),
+						deal.getEarly_bird(), deal.getRebate(), deal.getImg_url(),
+						deal.getProduct_url(), deal.getPrice(), deal.getId());
+			} catch (DataAccessException e) {
+				log.error("problem adding node metrics to database"
+						+ e.getMessage());
+				throw e;
+			}
 		}
 		//addDetails(deal);
 	}
