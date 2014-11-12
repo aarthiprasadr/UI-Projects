@@ -59,7 +59,7 @@ public class BlackFridayDao {
 
 	public void addDeals(DealList deals) {
 		
-		String statement = "INSERT INTO deal2014(store, category, sub_category, item, early_bird, rebate, img_url, product_url, price) VALUES (?,?,?,?,?,?,?,?,?);";
+		String statement = "INSERT INTO black_friday.deal2014(store, category, sub_category, item, early_bird, rebate, img_url, product_url, price) VALUES (?,?,?,?,?,?,?,?,?);";
 		try {
 			for (Deal deal : deals.getDeals()) {
 				jdbcTemplate.update(statement, deal.getStore(),
@@ -77,7 +77,7 @@ public class BlackFridayDao {
 
 	public void addDeal(Deal deal) {
 		if(deal.getId() == 0){
-		String statement = "INSERT INTO deal2014(store, category, sub_category, item, early_bird, rebate, img_url, product_url, price) VALUES (?,?,?,?,?,?,?,?,?);";
+		String statement = "INSERT INTO black_friday.deal2014(store, category, sub_category, item, early_bird, rebate, img_url, product_url, price) VALUES (?,?,?,?,?,?,?,?,?);";
 		try {
 			jdbcTemplate.update(statement, deal.getStore(), deal.getCategory(),
 					deal.getSub_category(), deal.getItem(),
@@ -90,7 +90,7 @@ public class BlackFridayDao {
 		}
 		}
 		else{
-			String statement = "UPDATE deal2014 SET store = ?, category = ?, sub_category = ?, item = ?, early_bird = ?, rebate = ?, img_url = ?, product_url = ?, price = ? WHERE id = ?;";
+			String statement = "UPDATE black_friday.deal2014  SET store = ?, category = ?, sub_category = ?, item = ?, early_bird = ?, rebate = ?, img_url = ?, product_url = ?, price = ? WHERE id = ?;";
 			try {
 				jdbcTemplate.update(statement, deal.getStore(), deal.getCategory(),
 						deal.getSub_category(), deal.getItem(),
@@ -346,7 +346,7 @@ public class BlackFridayDao {
 	}
 
 	public StoreList getAllStores() {
-		String query = "select distinct store from deal2014 order by store ";
+		String query = "select distinct store from black_friday.deal2014  order by store ";
 		final List<String> storeNames = new ArrayList<String>();
 		try {
 			jdbcTemplate.query(query, new RowMapper<String>() {
@@ -364,7 +364,7 @@ public class BlackFridayDao {
 	}
 
 	public CategoryList getAllCategory() {
-		String query = "select distinct category from deal2014 order by category;";
+		String query = "select distinct category from black_friday.deal2014  order by category;";
 		final List<String> storeNames = new ArrayList<String>();
 		try {
 			jdbcTemplate.query(query, new RowMapper<String>() {
@@ -383,7 +383,7 @@ public class BlackFridayDao {
 	}
 
 	public SubCategoryList getAllSubCategory() {
-		String query = "select distinct sub_category from deal2014 order by sub_category; ";
+		String query = "select distinct sub_category from black_friday.deal2014  order by sub_category; ";
 		final List<String> storeNames = new ArrayList<String>();
 		try {
 			jdbcTemplate.query(query, new RowMapper<String>() {

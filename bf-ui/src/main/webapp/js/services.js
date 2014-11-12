@@ -68,7 +68,7 @@ angular.module('bfApp.services', []).factory(
 					url : 'http://www.fridaywallet.com/bf-ws/category'
 				});
 			}
-			
+
 			bfAPI.getSubCategories = function() {
 				return $http({
 					method : 'GET',
@@ -80,36 +80,57 @@ angular.module('bfApp.services', []).factory(
 			}
 
 			bfAPI.getCategoriesByStore = function($store) {
-				return $http({
-					method : 'GET',
-					headers : {
-						'accept' : 'application/json'
-					},
-					url : 'http://www.fridaywallet.com/bf-ws/store-config/store/'
-							+ $store
-				});
+				if (!angular.isUndefined($store) || $store != null) {
+					return $http({
+						method : 'GET',
+						headers : {
+							'accept' : 'application/json'
+						},
+						url : 'http://www.fridaywallet.com/bf-ws/store-config/store/'
+								+ $store
+					});
+				} else {
+					return $http({
+						method : 'GET',
+						headers : {
+							'accept' : 'application/json'
+						},
+						url : 'http://www.fridaywallet.com/bf-ws/category'
+					});
+				}
 			}
-			
-			
+
 			bfAPI.getDealsByStoreCategory = function($store, $category) {
 				return $http({
 					method : 'GET',
 					headers : {
 						'accept' : 'application/json'
 					},
-					url : 'http://www.fridaywallet.com/bf-ws/deals/store/'+$store+'/category/'+$category
+					url : 'http://www.fridaywallet.com/bf-ws/deals/store/' + $store
+							+ '/category/' + $category
 				});
 			}
 
 			bfAPI.getStoresByCategory = function($category) {
-				return $http({
-					method : 'GET',
-					headers : {
-						'accept' : 'application/json'
-					},
-					url : 'http://www.fridaywallet.com/bf-ws/stores/category/'+$category
-				});
+				if (!angular.isUndefined($category) || $category != null) {
+					return $http({
+						method : 'GET',
+						headers : {
+							'accept' : 'application/json'
+						},
+						url : 'http://www.fridaywallet.com/bf-ws/stores/category/'
+								+ $category
+					});
+				} else {
+					return $http({
+						method : 'GET',
+						headers : {
+							'accept' : 'application/json'
+						},
+						url : 'http://www.fridaywallet.com/bf-ws/stores'
+					});
+				}
 			}
-			
+
 			return bfAPI;
 		});
