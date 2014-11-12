@@ -59,7 +59,7 @@ public class BlackFridayDao {
 
 	public void addDeals(DealList deals) {
 		
-		String statement = "INSERT INTO deal(store, category, sub_category, item, early_bird, rebate, img_url, product_url, price) VALUES (?,?,?,?,?,?,?,?,?);";
+		String statement = "INSERT INTO deal2014(store, category, sub_category, item, early_bird, rebate, img_url, product_url, price) VALUES (?,?,?,?,?,?,?,?,?);";
 		try {
 			for (Deal deal : deals.getDeals()) {
 				jdbcTemplate.update(statement, deal.getStore(),
@@ -77,7 +77,7 @@ public class BlackFridayDao {
 
 	public void addDeal(Deal deal) {
 		if(deal.getId() == 0){
-		String statement = "INSERT INTO deal(store, category, sub_category, item, early_bird, rebate, img_url, product_url, price) VALUES (?,?,?,?,?,?,?,?,?);";
+		String statement = "INSERT INTO deal2014(store, category, sub_category, item, early_bird, rebate, img_url, product_url, price) VALUES (?,?,?,?,?,?,?,?,?);";
 		try {
 			jdbcTemplate.update(statement, deal.getStore(), deal.getCategory(),
 					deal.getSub_category(), deal.getItem(),
@@ -90,7 +90,7 @@ public class BlackFridayDao {
 		}
 		}
 		else{
-			String statement = "UPDATE deal SET store = ?, category = ?, sub_category = ?, item = ?, early_bird = ?, rebate = ?, img_url = ?, product_url = ?, price = ? WHERE id = ?;";
+			String statement = "UPDATE deal2014 SET store = ?, category = ?, sub_category = ?, item = ?, early_bird = ?, rebate = ?, img_url = ?, product_url = ?, price = ? WHERE id = ?;";
 			try {
 				jdbcTemplate.update(statement, deal.getStore(), deal.getCategory(),
 						deal.getSub_category(), deal.getItem(),
@@ -244,7 +244,7 @@ public class BlackFridayDao {
 			totalPages++;
 		}
 
-		String query = "SELECT store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal where id > ? and id <= ? order by store, category, sub_category, item";
+		String query = "SELECT id, store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal2014 where id > ? and id <= ? order by store, category, sub_category, item";
 		try {
 			List<Deal> list = jdbcTemplate.query(query, new Object[] {
 					startIndex, endIndex }, new DealMapper());
@@ -259,7 +259,7 @@ public class BlackFridayDao {
 	}
 
 	public int getTotalCount() {
-		String query = "SELECT count(*) FROM black_friday.deal ";
+		String query = "SELECT count(*) FROM black_friday.deal2014 ";
 		try {
 			return jdbcTemplate.queryForInt(query);
 		} catch (DataAccessException e) {
