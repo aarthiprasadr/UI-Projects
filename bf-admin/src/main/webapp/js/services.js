@@ -15,6 +15,16 @@ angular.module('bfApp.services', []).factory(
 				    url: 'http://104.130.240.61:8080/bf-ws/addDeal'
 			  });
 			}
+			
+			bfAPI.getDeals = function() {
+				return $http({
+					method : 'GET',
+					headers : {
+						'accept' : 'application/json'
+					},
+					url : 'http://104.130.240.61:8080/bf-ws/deals'
+				});
+			}
 
 			bfAPI.getStores = function() {
 				return $http({

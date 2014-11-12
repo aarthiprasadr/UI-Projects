@@ -244,7 +244,7 @@ public class BlackFridayDao {
 			totalPages++;
 		}
 
-		String query = "SELECT store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal where id > ? and id <= ? order by store, category, sub_category, item";
+		String query = "SELECT id, store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal where id > ? and id <= ? order by store, category, sub_category, item";
 		try {
 			List<Deal> list = jdbcTemplate.query(query, new Object[] {
 					startIndex, endIndex }, new DealMapper());
