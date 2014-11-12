@@ -245,6 +245,7 @@ public class BlackFridayDao {
 		}
 
 		String query = "SELECT id, store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal2014 where id > ? and id <= ? order by store, category, sub_category, item";
+
 		try {
 			List<Deal> list = jdbcTemplate.query(query, new Object[] {
 					startIndex, endIndex }, new DealMapper());
@@ -345,14 +346,14 @@ public class BlackFridayDao {
 	}
 
 	public StoreList getAllStores() {
-		String query = "SELECT name FROM black_friday.store order by name ";
+		String query = "select distinct store from deal2014 order by store ";
 		final List<String> storeNames = new ArrayList<String>();
 		try {
 			jdbcTemplate.query(query, new RowMapper<String>() {
 
 				public String mapRow(ResultSet rs, int rowNum)
 						throws SQLException {
-					storeNames.add(rs.getString("name"));
+					storeNames.add(rs.getString("store"));
 					return null;
 				}
 			});
@@ -363,14 +364,14 @@ public class BlackFridayDao {
 	}
 
 	public CategoryList getAllCategory() {
-		String query = "SELECT  name FROM black_friday.category order by name";
+		String query = "select distinct category from deal2014 order by category;";
 		final List<String> storeNames = new ArrayList<String>();
 		try {
 			jdbcTemplate.query(query, new RowMapper<String>() {
 
 				public String mapRow(ResultSet rs, int rowNum)
 						throws SQLException {
-					storeNames.add(rs.getString("name"));
+					storeNames.add(rs.getString("category"));
 					return null;
 				}
 
@@ -382,14 +383,14 @@ public class BlackFridayDao {
 	}
 
 	public SubCategoryList getAllSubCategory() {
-		String query = "SELECT  name FROM black_friday.sub_category order by name ";
+		String query = "select distinct sub_category from deal2014 order by sub_category; ";
 		final List<String> storeNames = new ArrayList<String>();
 		try {
 			jdbcTemplate.query(query, new RowMapper<String>() {
 
 				public String mapRow(ResultSet rs, int rowNum)
 						throws SQLException {
-					storeNames.add(rs.getString("name"));
+					storeNames.add(rs.getString("sub_category"));
 					return null;
 				}
 			});
