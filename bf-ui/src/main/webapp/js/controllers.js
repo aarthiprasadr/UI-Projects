@@ -108,7 +108,19 @@ controller(
 			});
 
 			bfService.getCategoriesByStore(store).success(function(response) {
-				$scope.categoryList = response.storeConfig.categoryConfigs;
+				if (!angular.isUndefined(store) || store != null) {
+					$scope.categoryList = response.storeConfig.categoryConfigs;
+				} else {
+					$scope.categoryList = response.categoryNames;
+				}
+			});
+			
+			bfService.getStoresByCategory(category).success(function(response) {
+				if (!angular.isUndefined(category) || category != null) {
+					$scope.storeList = response.storeList.storeNames;
+				} else {
+					$scope.storeList = response.storeNames;
+				}
 			});
 		}).
 
@@ -143,8 +155,7 @@ controller(
 						|| re.test(deal.store) || re.test(deal.category)
 						|| re.test(deal.sub_category)
 						|| re.test(deal.early_bird) || re.test(deal.rebate)
-						|| re.test(deal.price));
-				
+						|| re.test(deal.price));				
 				return result;
 			};
 
@@ -154,7 +165,19 @@ controller(
 			});
 
 			bfService.getStoresByCategory(category).success(function(response) {
-				$scope.storeList = response.storeList.storeNames;
+				if (!angular.isUndefined(category) || category != null) {
+					$scope.storeList = response.storeList.storeNames;
+				} else {
+					$scope.storeList = response.storeNames;
+				}
+			});
+			
+			bfService.getCategoriesByStore(store).success(function(response) {
+				if (!angular.isUndefined(store) || store != null) {
+					$scope.categoryList = response.storeConfig.categoryConfigs;
+				} else {
+					$scope.categoryList = response.categoryNames;
+				}				
 			});
 
 			$scope.currentPage = 0;
@@ -195,15 +218,28 @@ controller(
 						|| re.test(deal.sub_category)
 						|| re.test(deal.early_bird) || re.test(deal.rebate)
 						|| re.test(deal.price));
-				
-				
-				
 				return result;
 			};
 
 			bfService.getDealsByStoreCategory(store, category).success(
 					function(response) {
 						$scope.dealList = response.dealList.deals;
+			});
+			
+			bfService.getStoresByCategory(category).success(function(response) {
+				if (!angular.isUndefined(category) || category != null) {
+					$scope.storeList = response.storeList.storeNames;
+				} else {
+					$scope.storeList = response.storeNames;
+				}
+			});
+			
+			bfService.getCategoriesByStore(store).success(function(response) {
+				if (!angular.isUndefined(store) || store != null) {
+					$scope.categoryList = response.storeConfig.categoryConfigs;
+				} else {
+					$scope.categoryList = response.categoryNames;
+				}				
 			});
 
 			$scope.currentPage = 0;
