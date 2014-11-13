@@ -79,8 +79,8 @@ controller(
 						/ $scope.pageSize);
 			};
 
-			$scope.addDeal = function(key) {
-				var deal = {
+			$scope.addDeal = function(deal) {
+				/*var deal = {
 					"id" : $scope.dealList[key].id,
 					"store" : $scope.dealList[key].store,
 					"category" : $scope.dealList[key].category,
@@ -91,7 +91,7 @@ controller(
 					"img_url" : $scope.dealList[key].img_url,
 					"product_url" : $scope.dealList[key].product_url,
 					"price" : $scope.dealList[key].price
-				};
+				};*/
 
 				bfService.addDeal(deal).success(function(response) {
 					alert("successfully updated!");

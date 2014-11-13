@@ -59,7 +59,7 @@ public class BlackFridayDao {
 
 	public void addDeals(DealList deals) {
 		
-		String statement = "INSERT INTO black_friday.deal2014(store, category, sub_category, item, early_bird, rebate, img_url, product_url, price) VALUES (?,?,?,?,?,?,?,?,?);";
+		String statement = "INSERT INTO black_friday.deal (store, category, sub_category, item, early_bird, rebate, img_url, product_url, price) VALUES (?,?,?,?,?,?,?,?,?);";
 		try {
 			for (Deal deal : deals.getDeals()) {
 				jdbcTemplate.update(statement, deal.getStore(),
@@ -77,7 +77,7 @@ public class BlackFridayDao {
 
 	public void addDeal(Deal deal) {
 		if(deal.getId() == 0){
-		String statement = "INSERT INTO black_friday.deal2014(store, category, sub_category, item, early_bird, rebate, img_url, product_url, price) VALUES (?,?,?,?,?,?,?,?,?);";
+		String statement = "INSERT INTO black_friday.deal (store, category, sub_category, item, early_bird, rebate, img_url, product_url, price) VALUES (?,?,?,?,?,?,?,?,?);";
 		try {
 			jdbcTemplate.update(statement, deal.getStore(), deal.getCategory(),
 					deal.getSub_category(), deal.getItem(),
@@ -90,7 +90,7 @@ public class BlackFridayDao {
 		}
 		}
 		else{
-			String statement = "UPDATE black_friday.deal2014  SET store = ?, category = ?, sub_category = ?, item = ?, early_bird = ?, rebate = ?, img_url = ?, product_url = ?, price = ? WHERE id = ?;";
+			String statement = "UPDATE black_friday.deal   SET store = ?, category = ?, sub_category = ?, item = ?, early_bird = ?, rebate = ?, img_url = ?, product_url = ?, price = ? WHERE id = ?;";
 			try {
 				jdbcTemplate.update(statement, deal.getStore(), deal.getCategory(),
 						deal.getSub_category(), deal.getItem(),
@@ -244,7 +244,7 @@ public class BlackFridayDao {
 			totalPages++;
 		}
 
-		String query = "SELECT id, store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal2014 where id > ? and id <= ? order by store, category, sub_category, item";
+		String query = "SELECT id, store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal  where id > ? and id <= ? order by store, category, sub_category, item";
 
 		try {
 			List<Deal> list = jdbcTemplate.query(query, new Object[] {
@@ -260,7 +260,7 @@ public class BlackFridayDao {
 	}
 
 	public int getTotalCount() {
-		String query = "SELECT count(*) FROM black_friday.deal2014 ";
+		String query = "SELECT count(*) FROM black_friday.deal  ";
 		try {
 			return jdbcTemplate.queryForInt(query);
 		} catch (DataAccessException e) {
@@ -269,7 +269,7 @@ public class BlackFridayDao {
 	}
 
 	public DealList getDealsByStore(String storeName) {
-		String query = "SELECT id, store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal2014 where store = ? order by store, category, sub_category, item ";
+		String query = "SELECT id, store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal  where store = ? order by store, category, sub_category, item ";
 
 		try {
 			List<Deal> list = jdbcTemplate.query(query,
@@ -282,7 +282,7 @@ public class BlackFridayDao {
 
 	public DealList getDealsByStoreAndCategory(String storeName,
 			String categoryName) {
-		String query = "SELECT id, store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal2014 where store = ? AND category = ? order by store, category, sub_category, item ";
+		String query = "SELECT id, store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal  where store = ? AND category = ? order by store, category, sub_category, item ";
 
 		try {
 			List<Deal> list = jdbcTemplate.query(query, new Object[] {
@@ -296,7 +296,7 @@ public class BlackFridayDao {
 	public DealList getDealsByStoreAndCategoryAndItem(String storeName,
 			String categoryName, String itemName) {
 
-		String query = "SELECT id, store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal2014 where store = ? AND category = ? AND item = ? order by store, category, sub_category, item ";
+		String query = "SELECT id, store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal  where store = ? AND category = ? AND item = ? order by store, category, sub_category, item ";
 
 		try {
 			List<Deal> list = jdbcTemplate.query(query, new Object[] {
@@ -309,7 +309,7 @@ public class BlackFridayDao {
 
 	public DealList getDealsByCategory(String categoryName) {
 
-		String query = "SELECT id, store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal2014 where category = ? order by store, category, sub_category, item ";
+		String query = "SELECT id, store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal  where category = ? order by store, category, sub_category, item ";
 
 		try {
 			List<Deal> list = jdbcTemplate.query(query,
@@ -321,7 +321,7 @@ public class BlackFridayDao {
 	}
 
 	public DealList getDealsByItem(String itemName) {
-		String query = "SELECT id, store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal2014 where item = ? order by store, category, sub_category, item ";
+		String query = "SELECT id, store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal  where item = ? order by store, category, sub_category, item ";
 
 		try {
 			List<Deal> list = jdbcTemplate.query(query,
@@ -334,7 +334,7 @@ public class BlackFridayDao {
 
 	public DealList getDealsByCategoryAndItem(String categoryName,
 			String itemName) {
-		String query = "SELECT id, store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal2014 where category = ? and item = ? order by store, category, sub_category, item ";
+		String query = "SELECT id, store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal  where category = ? and item = ? order by store, category, sub_category, item ";
 
 		try {
 			List<Deal> list = jdbcTemplate.query(query, new Object[] {
@@ -346,7 +346,7 @@ public class BlackFridayDao {
 	}
 
 	public StoreList getAllStores() {
-		String query = "select distinct store from black_friday.deal2014  order by store ";
+		String query = "select distinct store from black_friday.deal   order by store ";
 		final List<String> storeNames = new ArrayList<String>();
 		try {
 			jdbcTemplate.query(query, new RowMapper<String>() {
@@ -364,7 +364,7 @@ public class BlackFridayDao {
 	}
 
 	public CategoryList getAllCategory() {
-		String query = "select distinct category from black_friday.deal2014  order by category;";
+		String query = "select distinct category from black_friday.deal   order by category;";
 		final List<String> storeNames = new ArrayList<String>();
 		try {
 			jdbcTemplate.query(query, new RowMapper<String>() {
@@ -383,7 +383,7 @@ public class BlackFridayDao {
 	}
 
 	public SubCategoryList getAllSubCategory() {
-		String query = "select distinct sub_category from black_friday.deal2014  order by sub_category; ";
+		String query = "select distinct sub_category from black_friday.deal   order by sub_category; ";
 		final List<String> storeNames = new ArrayList<String>();
 		try {
 			jdbcTemplate.query(query, new RowMapper<String>() {
