@@ -1,7 +1,7 @@
 <br />
 <br />
 <br />
-<div id="topbanner">
+<!-- <div id="topbanner">
 	<script type="text/javascript">
 		(function() {
 			if (window.CHITIKA === undefined) {
@@ -23,14 +23,14 @@
 		}());
 	</script>
 	<script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
-</div>
+</div> -->
 
 <div class="col-lg-12">
 	<div class="row">
 		<div class="col-lg-2">
 			<!-- Navigation -->
 			<a href="#/home"><img ng-src="img/fwl.png" width="100px"
-				height="105px" /></a>
+				height="105px" /></a> <label>Black Friday Deals</label>
 			<!-- <ol class="breadcrumb">
 				<li class="active"><a href="#/home">Home</a></li>
 				<li class="active" ng-show="selectedStore"><a
@@ -41,34 +41,39 @@
 		<div class="col-lg-10" id="id72890">
 			<!-- <img class="img-responsive customer-img"
 				src="http://placehold.it/728x90" alt=""> -->
+			<iframe
+				src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=48&l=ur1&category=electronicsrot&f=ifr&linkID=FVPSHSWFTLS4B5T4"
+				width="728" height="90" scrolling="no" border="0" marginwidth="0"
+				style="border: none;" frameborder="0"></iframe>
+
+
 		</div>
 	</div>
 </div>
 
 <!-- /.row -->
 <div class="col-lg-9">
-	<h2 class="page-header">Black Friday Deals</h2>
-
+	<br>
 	<div class="col-lg-12">
 		<div class="col-lg-5">
-			<ul class="pager" style="text-align: left; margin:0px; margin-bottom: 20px;" >
+			<ul class="pager"
+				style="text-align: left; margin: 0px; margin-bottom: 20px;">
 				<li><button class="btn btn-info" ng-disabled="currentPage == 0"
 						ng-click="currentPage=currentPage-1">&larr; Previous</button></li>
 				{{currentPage+1}} / {{numberOfPages()}}
 				<li><button class="btn btn-info"
 						ng-disabled="currentPage >= dealList.length/pageSize - 1"
-						ng-click="currentPage=currentPage+1">Next &rarr;</button>
-					</li>
+						ng-click="currentPage=currentPage+1">Next &rarr;</button></li>
 			</ul>
 		</div>
 		<div class="col-lg-7">
-		<input type="text" class="form-control" ng-model="nameFilter"
-					placeholder="Search Deal..." />
+			<input type="text" class="form-control" ng-model="nameFilter"
+				placeholder="Search for deals like...	Xbox..Apple..laptop..Tv.." />
 		</div>
 	</div>
 	<br />
-	<table class="table" style="background: #E2E2E2">
-		<thead>
+	<table class="table">
+		<thead style="border-bottom: 0.5em solid wheat;">
 			<tr>
 				<th class="info" style="background: #2aabd2; text-align: center"></th>
 				<th class="info" style="background: #2aabd2; text-align: center">Item</th>
@@ -103,7 +108,7 @@
 						</span>
 					</div>
 				</th>
-				<th class="info" style="background: #2aabd2; text-align: center">
+				<th class="info" style="background: #2aabd2; text-align: center;">
 					<div ng-show="categoryList">
 						<span class="input-group"> <span class="input-group-btn">
 								<button type="button" class="btn btn-default dropdown-toggle"
@@ -141,14 +146,15 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr
+			<tr style="background: cornsilk; border-bottom: 0.3em solid wheat;"
 				ng-repeat="deal in dealList | filter: searchFilter | startFrom:currentPage*pageSize | limitTo:pageSize"">
 				<td><img ng-src="{{deal.img_url}}" height="100" width="100" /><br />{{deal.price}}</td>
-				<td width="30%"><a href="{{deal.product_url}}" target="_blank">{{deal.item}}</a></td>
-				<td width="15%">{{deal.store}}</td>
-				<td width="15%">{{deal.category}}</td>
-				<td width="10%">{{deal.rebate}}</td>
-				<td width="10%">{{deal.early_bird}}</td>
+				<td width="30%" style="vertical-align: middle;"><a
+					href="{{deal.product_url}}" target="_blank">{{deal.item}}</a></td>
+				<td width="15%" style="vertical-align: middle;">{{deal.store}}</td>
+				<td width="15%" style="vertical-align: middle;">{{deal.category}}</td>
+				<td width="10%" style="vertical-align: middle;">{{deal.rebate}}</td>
+				<td width="10%" style="vertical-align: middle;">{{deal.early_bird}}</td>
 			</tr>
 		</tbody>
 	</table>
@@ -214,27 +220,117 @@
 	<div id="id300150" class="row">
 		<!-- <img class="img-responsive customer-img"
 			src="http://placehold.it/300x250" alt=""> -->
+
 	</div>
 
 	<br />
-	<div class="row">
-		<img class="img-responsive customer-img"
-			src="http://placehold.it/200x90" alt="">
+	<div id="id300600-2" class="row">
+		<!-- <img class="img-responsive customer-img"
+			src="http://placehold.it/200x90" alt=""> -->
 
-		<script async
-			src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-		<!-- link side 1 -->
-		<ins class="adsbygoogle"
-			style="display: inline-block; width: 200px; height: 90px"
-			data-ad-client="ca-pub-1483824450128750" data-ad-slot="9970276225"></ins>
-		<script>
-			(adsbygoogle = window.adsbygoogle || []).push({});
-		</script>
+		<iframe
+			src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=49&l=ur1&category=electronicsrot&f=ifr&linkID=SVJLD7RADQCJ7JH2"
+			width="300" height="600" scrolling="no" border="0" marginwidth="0"
+			style="border: none;" frameborder="0"></iframe>
+
 	</div>
 
 	<br />
 	<div class="row">
 		<!-- <img class="img-responsive customer-img"
 			src="http://placehold.it/200x90" alt=""> -->
+		<iframe
+			src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=12&l=ur1&category=ap1112_1120_dresswear&banner=1JYFZSAYYJSW0Q1TVBR2&f=ifr&linkID=U7J3IJFJZLICUJRM"
+			width="300" height="250" scrolling="no" border="0" marginwidth="0"
+			style="border: none;" frameborder="0"></iframe>
+
+	</div>
+
+	<br />
+	<div class="row">
+		<!-- <img class="img-responsive customer-img"
+			src="http://placehold.it/200x90" alt=""> -->
+		<iframe
+			src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=12&l=ur1&category=sh112_1120_20off100&banner=02BF3B5YSS5A8CYX9H02&f=ifr&linkID=4ALZ5I6OJ3EDCHCC"
+			width="300" height="250" scrolling="no" border="0" marginwidth="0"
+			style="border: none;" frameborder="0"></iframe>
+
+
+	</div>
+
+	<br />
+	<div class="row">
+		<!-- <img class="img-responsive customer-img"
+			src="http://placehold.it/200x90" alt=""> -->
+		<iframe
+			src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=12&l=ur1&category=w_1112_1120_75prcntgifts&banner=02ZE0K2ZPRZ7BSM6JF82&f=ifr&linkID=T32OY4AV63N6367T"
+			width="300" height="250" scrolling="no" border="0" marginwidth="0"
+			style="border: none;" frameborder="0"></iframe>
+
+
+	</div>
+
+	<br />
+	<div class="row">
+		<!-- <img class="img-responsive customer-img"
+			src="http://placehold.it/200x90" alt=""> -->
+		<iframe
+			src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=12&l=ur1&category=htl2014&banner=0W151YX9MV89518XNJR2&f=ifr&linkID=NPRL57NUXKV7DKWO"
+			width="300" height="250" scrolling="no" border="0" marginwidth="0"
+			style="border: none;" frameborder="0"></iframe>
+
+
+	</div>
+	<div class="row">
+		<!-- <img class="img-responsive customer-img"
+			src="http://placehold.it/200x90" alt=""> -->
+		<iframe
+			src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=12&l=ur1&category=ce_smartphone_tradein&banner=1QZNHTXGBRPRTA9KQFG2&f=ifr&linkID=NEQNONPAWD7LYC7S"
+			width="300" height="250" scrolling="no" border="0" marginwidth="0"
+			style="border: none;" frameborder="0"></iframe>
+
+	</div>
+	<div class="row">
+		<!-- <img class="img-responsive customer-img"
+			src="http://placehold.it/200x90" alt=""> -->
+		<iframe
+			src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=12&l=ur1&category=ce_2014tv&banner=0Q24YY8XJSVFAHT4CSG2&f=ifr&linkID=D64HBJ3MTAFUZUBH"
+			width="300" height="250" scrolling="no" border="0" marginwidth="0"
+			style="border: none;" frameborder="0"></iframe>
+
+	</div>
+
+	<div class="row">
+		<!-- <img class="img-responsive customer-img"
+			src="http://placehold.it/200x90" alt=""> -->
+		<iframe
+			src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=12&l=ur1&category=countbf&banner=1YBZEC8N4E8KAC6C7VR2&f=ifr&linkID=LLQ3CCOC7HLH4ENE"
+			width="300" height="250" scrolling="no" border="0" marginwidth="0"
+			style="border: none;" frameborder="0"></iframe>
+
+	</div>
+
+	<div class="row">
+		<!-- <img class="img-responsive customer-img"
+			src="http://placehold.it/200x90" alt=""> -->
+		<iframe
+			src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=12&l=ur1&category=primeent&banner=032PM0C4EGZ3KFE57R82&f=ifr&linkID=AIXDCW4YQIHS25FM"
+			width="300" height="250" scrolling="no" border="0" marginwidth="0"
+			style="border: none;" frameborder="0"></iframe>
+	</div>
+
+	<div class="row">
+		<iframe
+			src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=12&l=ur1&category=cegghol13&banner=01EH9TTFKYZV4TJNBZ02&f=ifr&linkID=4KBNCJPTPFEMPMYW"
+			width="300" height="250" scrolling="no" border="0" marginwidth="0"
+			style="border: none;" frameborder="0"></iframe>
+	</div>
+
+	<div class="row">
+		<iframe
+			src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=11&l=ez&f=ifr&f=ifr&linkID=SB4D67WOZXGT7TE4"
+			width="120" height="600" scrolling="no" marginwidth="0"
+			marginheight="0" border="0" frameborder="0" style="border: none;"></iframe>
+
 	</div>
 </div>
