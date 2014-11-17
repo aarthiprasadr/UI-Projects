@@ -12,20 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class DeviceDetectionController {
 
-	@RequestMapping("/detect-device")
-	public @ResponseBody String detectDevice(Device device) {
-		String deviceType = "unknown";
-		if (device.isNormal()) {
-			deviceType = "normal";
-		} else if (device.isMobile()) {
-			deviceType = "mobile";
-		} else if (device.isTablet()) {
-			deviceType = "tablet";
-		}
-		return "Hello " + deviceType + " browser!";
-	}
 
-	@RequestMapping("/detect-device1")
+	@RequestMapping("/detect-device")
 	public @ResponseBody String preHandle(HttpServletRequest request,
 			HttpServletResponse arg1, Object arg2) throws Exception {
 		Device device = DeviceUtils.getCurrentDevice(request);
