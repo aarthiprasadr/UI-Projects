@@ -52,6 +52,18 @@ controller(
 			bfService.getCategories().success(function(response) {
 				$scope.categoryList = response.categoryNames;
 			});
+			
+			$scope.mobile = false;
+
+			bfService.isMobile().success(function(response) {
+				var isMobileDevice = response.replace("\"", "");
+				isMobileDevice = isMobileDevice.replace("\"", "");
+				if(isMobileDevice === "mobile") {
+					$scope.mobile = true;
+				} else {
+					$scope.mobile = false;
+				}
+			});
 		}).
 
 filter('startFrom', function() {
@@ -122,6 +134,18 @@ controller(
 					$scope.storeList = response.storeNames;
 				}
 			});
+			
+			$scope.mobile = false;
+
+			bfService.isMobile().success(function(response) {
+				var isMobileDevice = response.replace("\"", "");
+				isMobileDevice = isMobileDevice.replace("\"", "");
+				if(isMobileDevice === "mobile") {
+					$scope.mobile = true;
+				} else {
+					$scope.mobile = false;
+				}
+			});
 		}).
 
 controller(
@@ -185,6 +209,18 @@ controller(
 			$scope.numberOfPages = function() {
 				return Math.ceil($scope.dealList.length / $scope.pageSize);
 			};
+			
+			$scope.mobile = false;
+
+			bfService.isMobile().success(function(response) {
+				var isMobileDevice = response.replace("\"", "");
+				isMobileDevice = isMobileDevice.replace("\"", "");
+				if(isMobileDevice === "mobile") {
+					$scope.mobile = true;
+				} else {
+					$scope.mobile = false;
+				}
+			});
 		}).
 
 controller(
@@ -247,4 +283,16 @@ controller(
 			$scope.numberOfPages = function() {
 				return Math.ceil($scope.dealList.length / $scope.pageSize);
 			};
+			
+			$scope.mobile = false;
+
+			bfService.isMobile().success(function(response) {
+				var isMobileDevice = response.replace("\"", "");
+				isMobileDevice = isMobileDevice.replace("\"", "");
+				if(isMobileDevice === "mobile") {
+					$scope.mobile = true;
+				} else {
+					$scope.mobile = false;
+				}
+			});
 		});

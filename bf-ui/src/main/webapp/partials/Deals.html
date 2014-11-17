@@ -41,17 +41,35 @@
 		<div class="col-lg-10" id="id72890">
 			<!-- <img class="img-responsive customer-img"
 				src="http://placehold.it/728x90" alt=""> -->
-			 <iframe
-				src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=48&l=ur1&category=electronicsrot&f=ifr&linkID=FVPSHSWFTLS4B5T4"
-				width="728" height="90" scrolling="no" border="0" marginwidth="0"
-				style="border: none;" frameborder="0"></iframe> 
-
+			<span ng-show="!mobile"> <iframe
+					src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=48&l=ur1&category=electronicsrot&f=ifr&linkID=FVPSHSWFTLS4B5T4"
+					width="728" height="90" scrolling="no" border="0" marginwidth="0"
+					style="border: none;" frameborder="0"></iframe>
+			</span>
 			<!-- AdClickMedia Banner Panels Code START -->
 			<!-- <script language="javascript" type="text/javascript"
 				src="http://banneradvertising.adclickmedia.com/cgi-bin/bannerrotate.cgi?aarthiprasadr::47652"></script>
-			 --><!-- AdClickMedia Banner Panels Code END -->
-
-
+			 -->
+			<!-- AdClickMedia Banner Panels Code END -->
+		</div>
+		
+		<div id="72890">
+			<span ng-show="mobile"> <script type="text/javascript">
+				(function() {
+					CHITIKA = window.CHITIKA ? window.CHITIKA : {
+						'units' : []
+					};
+					CHITIKA.publisher = 'aarthiprasadr';
+					var s = document.createElement('script');
+					s.src = '//cdn.chitika.net/getads.js';
+					try {
+						document.getElementById('id72890').appendChild(s);
+					} catch (e) {
+						document.getElementById('id72890').innerHTML = s.outerHTML;
+					}
+				}());
+			</script>
+			</span>
 		</div>
 	</div>
 </div>
@@ -145,8 +163,8 @@
 						</span>
 					</div>
 				</th>
-				<th class="info" style="background: #2aabd2; text-align: center">Rebate</th>
-				<th class="info" style="background: #2aabd2; text-align: center">Early
+				<th ng-show="!mobile" class="info" style="background: #2aabd2; text-align: center">Rebate</th>
+				<th ng-show="!mobile" class="info" style="background: #2aabd2; text-align: center">Early
 					Bird</th>
 			</tr>
 		</thead>
@@ -158,8 +176,8 @@
 					href="{{deal.product_url}}" target="_blank">{{deal.item}}</a></td>
 				<td width="15%" style="vertical-align: middle;">{{deal.store}}</td>
 				<td width="15%" style="vertical-align: middle;">{{deal.category}}</td>
-				<td width="10%" style="vertical-align: middle;">{{deal.rebate}}</td>
-				<td width="10%" style="vertical-align: middle;">{{deal.early_bird}}</td>
+				<td ng-show="!mobile" width="10%" style="vertical-align: middle;">{{deal.rebate}}</td>
+				<td ng-show="!mobile" width="10%" style="vertical-align: middle;">{{deal.early_bird}}</td>
 			</tr>
 		</tbody>
 	</table>

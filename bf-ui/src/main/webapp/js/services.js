@@ -110,6 +110,16 @@ angular.module('bfApp.services', []).factory(
 							+ '/category/' + $category
 				});
 			}
+			
+			bfAPI.isMobile = function() {
+				return $http({
+					method : 'GET',
+					headers : {
+						'accept' : 'application/json'
+					},
+					url : 'http://www.fridaywallet.com/bf-ws/detect-device'
+				});
+			}
 
 			bfAPI.getStoresByCategory = function($category) {
 				if (!angular.isUndefined($category) || $category != null) {
