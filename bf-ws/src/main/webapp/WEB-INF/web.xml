@@ -16,6 +16,14 @@
 		<filter-name>deviceResolverRequestFilter</filter-name>
 		<filter-class>org.springframework.mobile.device.DeviceResolverRequestFilter</filter-class>
 	</filter>
+	<filter>
+		<filter-name>jsonpCallbackFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>jsonpCallbackFilter</filter-name>
+		<url-pattern>*.json</url-pattern>
+	</filter-mapping>
 	<servlet>
 		<servlet-name>dispatcher</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>

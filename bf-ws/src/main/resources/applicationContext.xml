@@ -8,6 +8,8 @@
       http://www.springframework.org/schema/util
        http://www.springframework.org/schema/util/spring-util-3.0.xsd
        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
+	<bean id="jsonpCallbackFilter"
+		class="com.optative.bf.ws.JsonpCallbackFilter" />
 
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -18,19 +20,19 @@
 		</property>
 	</bean>
 
-	<bean id="mysqldataSource" 
-		class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+	<bean id="mysqldataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
 		<property name="driverClass" value="${optative.jdbc.driverClassName}" />
 		<property name="jdbcUrl" value="${optative.jdbc.url}" />
 		<property name="user" value="${optative.jdbc.username}" />
 		<property name="password" value="${optative.jdbc.password}" />
 		<property name="testConnectionOnCheckin" value="true" />
 		<property name="idleConnectionTestPeriod" value="300" />
-		<property name= "minPoolSize" value="3" />
-		<property name= "maxPoolSize" value="100" />
-		<property name= "maxIdleTimeExcessConnections" value="240" />
-		<property name= "numHelperThreads" value="4" />
-		<property name= "unreturnedConnectionTimeout" value="600" />
+		<property name="minPoolSize" value="3" />
+		<property name="maxPoolSize" value="100" />
+		<property name="maxIdleTimeExcessConnections" value="240" />
+		<property name="numHelperThreads" value="4" />
+		<property name="unreturnedConnectionTimeout" value="600" />
 	</bean>
 
 </beans>
