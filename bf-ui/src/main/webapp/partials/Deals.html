@@ -1,421 +1,492 @@
-<br />
-<br />
-<br />
-<!-- <div id="topbanner">
-	<script type="text/javascript">
-		(function() {
-			if (window.CHITIKA === undefined) {
-				window.CHITIKA = {
-					'units' : []
-				};
-			}
-			;
-			var unit = {
-				"calltype" : "async[2]",
-				"publisher" : "aarthiprasadr",
-				"width" : 728,
-				"height" : 90,
-				"sid" : "Chitika Default"
-			};
-			var placement_id = window.CHITIKA.units.length;
-			window.CHITIKA.units.push(unit);
-			document.getElementById('id72890').innerHTML = '<div id="chitikaAdBlock-' + placement_id + '"></div>'
-		}());
-	</script>
-	<script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
-</div> -->
-
-<div class="col-lg-12">
-	<div class="row">
-		<div class="col-lg-2">
-			<!-- Navigation -->
-			<a href="#/home"><img ng-src="img/fwl.png" width="100px"
-				height="105px" /></a> <label>Black Friday Deals</label>
-			<!-- <ol class="breadcrumb">
-				<li class="active"><a href="#/home">Home</a></li>
-				<li class="active" ng-show="selectedStore"><a
-					href="#/store/{{selectedStore}}">{{selectedStore}}</a></li>
-				<li class="active" ng-show="selectedCategory">{{selectedCategory}}</li>
-			</ol> -->
+<!-- <div data-ng-controller="AllDeals" ng-show="mobile"
+	data-ng-init="redirectToMobile()"></div> -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header" style="height: 105px; margin-left: 25px">
+			<ol class="nav navbar-nav">
+				<li><button type="button" class="navbar-toggle"
+						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span>
+					</button> <a class="navbar-brand" href="#/home" style="padding: 0px"><img
+						ng-src="img/bfl.png"
+						style="background-image: linear-gradient(to bottom, #3c3c3c 0, #222 100%); padding: 10px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px"
+						width="100px" height="105px;" /></a></li>
+			</ol>
 		</div>
-		<div class="col-lg-10" id="id72890">
-			<!-- <img class="img-responsive customer-img"
+		<div ng-show="!mobile"
+			style="float: right; margin-top: 60px; width: 60%">
+			<input type="text" class="form-control" ng-model="nameFilter"
+				placeholder="Filter by item or store or category name" />
+		</div>
+	</div>
+</nav>
+<br />
+<br />
+<br />
+<br />
+<div class="col-lg-12" ng-show="!mobile">
+	<!-- <img class="img-responsive customer-img"
 				src="http://placehold.it/728x90" alt=""> -->
-			<span ng-show="!mobile"> <iframe
-					src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=48&l=ur1&category=electronicsrot&f=ifr&linkID=FVPSHSWFTLS4B5T4"
-					width="728" height="90" scrolling="no" border="0" marginwidth="0"
-					style="border: none;" frameborder="0"></iframe>
-			</span>
-			<!-- AdClickMedia Banner Panels Code START -->
-			<!-- <script language="javascript" type="text/javascript"
-				src="http://banneradvertising.adclickmedia.com/cgi-bin/bannerrotate.cgi?aarthiprasadr::47652"></script>
-			 -->
-			<!-- AdClickMedia Banner Panels Code END -->
-		</div>
-		
-		<div id="72890">
-			<span ng-show="mobile"> <script type="text/javascript">
-				(function() {
-					CHITIKA = window.CHITIKA ? window.CHITIKA : {
+	<div class="col-lg-2"></div>
+	<div class="col-lg-10">
+		<iframe
+			src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=48&l=ur1&category=electronicsrot&f=ifr&linkID=FVPSHSWFTLS4B5T4"
+			width="728" height="90" scrolling="no" border="0" marginwidth="0"
+			style="border: none;" frameborder="0"></iframe>
+	</div>
+</div>
+<!-- /.row -->
+<div class="col-lg-12">
+	<div class="col-lg-12" ng-show="mobile">
+		<ul class="pager"
+			style="text-align: right; margin: 0px; margin-bottom: 20px;">
+			<li><button class="btn btn-info" ng-disabled="currentPage == 0"
+					ng-click="currentPage=currentPage-1">&larr; Previous</button></li>
+			{{currentPage+1}} / {{numberOfPages()}}
+			<li><button class="btn btn-info"
+					ng-disabled="currentPage >= dealList.length/pageSize - 1"
+					ng-click="currentPage=currentPage+1">Next &rarr;</button></li>
+		</ul>
+		<br /> <input type="text" class="form-control" ng-model="nameFilter"
+			placeholder="Filter by item or store or category name" /> <br />
+		<table class="table"
+			style="border-top-left-radius: 5px; border-top-right-radius: 5px;">
+			<thead style="border-bottom: 0.3em solid gray;">
+				<tr>
+					<th class="info" style="background: orange; text-align: center"></th>
+					<th class="info" style="background: orange; text-align: center">Item</th>
+					<th class="info" style="background: orange; text-align: center">
+						<div ng-show="storeList">
+							<span class="input-group"> <span class="input-group-btn">
+									<button type="button" class="btn btn-default dropdown-toggle"
+										data-toggle="dropdown">
+										<span ng-show="selectedStore">{{selectedStore}}</span> <span
+											ng-show="!selectedStore">Stores</span> <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu dropdown-menu-right" role="menu">
+										<span ng-show="selectedStore"> <span
+											ng-show="selectedCategory">
+												<li>&nbsp; <a href="#/category/{{selectedCategory}}">All
+														Stores</a></li>
+										</span> <span ng-show="!selectedCategory">
+												<li>&nbsp; <a href="#/home">All Stores</a></li>
+										</span>
+										</span>
+										<li ng-repeat="store in storeList ">
+											<div ng-show="selectedCategory">
+												&nbsp; <a
+													href="#/store/{{store}}/category/{{selectedCategory}}">{{store}}</a>
+											</div>
+											<div ng-show="!selectedCategory">
+												&nbsp; <a href="#/store/{{store}}">{{store}}</a>
+											</div>
+										</li>
+									</ul>
+							</span>
+							</span>
+						</div>
+					</th>
+					<th class="info" style="background: orange; text-align: center;">
+						<div ng-show="categoryList">
+							<span class="input-group"> <span class="input-group-btn">
+									<button type="button" class="btn btn-default dropdown-toggle"
+										data-toggle="dropdown">
+										<span ng-show="selectedCategory">{{selectedCategory}}</span> <span
+											ng-show="!selectedCategory">Categories</span> <span
+											class="caret"></span>
+									</button>
+									<ul class="dropdown-menu dropdown-menu-right" role="menu">
+										<span ng-show="selectedCategory"> <span
+											ng-show="selectedStore">
+												<li>&nbsp; <a href="#/store/{{selectedStore}}">All
+														Categories</a></li>
+										</span> <span ng-show="!selectedStore">
+												<li>&nbsp; <a href="#/home">All Categories</a></li>
+										</span>
+										</span>
+										<li ng-repeat="category in categoryList">
+											<div ng-show="selectedStore">
+												&nbsp; <a
+													href="#/store/{{selectedStore}}/category/{{category.categoryName}}">{{category.categoryName}}</a>
+											</div>
+											<div ng-show="!selectedStore">
+												&nbsp; <a href="#/category/{{category}}">{{category}}</a>
+											</div>
+										</li>
+									</ul>
+							</span>
+							</span>
+						</div>
+					</th>
+					<th class="info" style="background: orange; text-align: center"
+						ng-show="!mobile">Rebate</th>
+					<th class="info" style="background: orange; text-align: center"
+						ng-show="!mobile">Early Bird</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr
+					style="background: floralwhite; border-bottom: 0.1em solid gray;"
+					ng-repeat="deal in dealList | filter: searchFilter | startFrom:currentPage*pageSize | limitTo:pageSize"">
+					<td><img ng-src="{{deal.img_url}}" height="100" width="100" /><br />{{deal.price}}</td>
+					<td width="30%" style="vertical-align: middle;"><a
+						href="{{deal.product_url}}" target="_blank">{{deal.item}}</a></td>
+					<td width="15%" style="vertical-align: middle;">{{deal.store}}</td>
+					<td width="15%" style="vertical-align: middle;">{{deal.category}}</td>
+					<td width="10%" style="vertical-align: middle;" ng-show="!mobile">{{deal.rebate}}</td>
+					<td width="10%" style="vertical-align: middle;" ng-show="!mobile">{{deal.early_bird}}</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<ul class="pager"
+			style="text-align: right; margin: 0px; margin-bottom: 20px;">
+			<li><button class="btn btn-info" ng-disabled="currentPage == 0"
+					ng-click="currentPage=currentPage-1">&larr; Previous</button></li>
+			{{currentPage+1}} / {{numberOfPages()}}
+			<li><button class="btn btn-info"
+					ng-disabled="currentPage >= dealList.length/pageSize - 1"
+					ng-click="currentPage=currentPage+1">Next &rarr;</button></li>
+		</ul>
+	</div>
+
+	<div class="col-lg-9" ng-show="!mobile">
+		<br />
+		<ul class="pager"
+			style="text-align: left; margin: 0px; margin-bottom: 20px;">
+			<li><button class="btn btn-info" ng-disabled="currentPage == 0"
+					ng-click="currentPage=currentPage-1">&larr; Previous</button></li>
+			{{currentPage+1}} / {{numberOfPages()}}
+			<li><button class="btn btn-info"
+					ng-disabled="currentPage >= dealList.length/pageSize - 1"
+					ng-click="currentPage=currentPage+1">Next &rarr;</button></li>
+		</ul>
+		<table class="table"
+			style="border-top-left-radius: 5px; border-top-right-radius: 5px;">
+			<thead style="border-bottom: 0.3em solid gray;">
+				<tr>
+					<th class="info" style="background: orange; text-align: center"></th>
+					<th class="info" style="background: orange; text-align: center">Item</th>
+					<th class="info" style="background: orange; text-align: center">
+						<div ng-show="storeList">
+							<span class="input-group"> <span class="input-group-btn">
+									<button type="button" class="btn btn-default dropdown-toggle"
+										data-toggle="dropdown">
+										<span ng-show="selectedStore">{{selectedStore}}</span> <span
+											ng-show="!selectedStore">Stores</span> <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu dropdown-menu-right" role="menu">
+										<span ng-show="selectedStore"> <span
+											ng-show="selectedCategory">
+												<li>&nbsp; <a href="#/category/{{selectedCategory}}">All
+														Stores</a></li>
+										</span> <span ng-show="!selectedCategory">
+												<li>&nbsp; <a href="#/home">All Stores</a></li>
+										</span>
+										</span>
+										<li ng-repeat="store in storeList ">
+											<div ng-show="selectedCategory">
+												&nbsp; <a
+													href="#/store/{{store}}/category/{{selectedCategory}}">{{store}}</a>
+											</div>
+											<div ng-show="!selectedCategory">
+												&nbsp; <a href="#/store/{{store}}">{{store}}</a>
+											</div>
+										</li>
+									</ul>
+							</span>
+							</span>
+						</div>
+					</th>
+					<th class="info" style="background: orange; text-align: center;">
+						<div ng-show="categoryList">
+							<span class="input-group"> <span class="input-group-btn">
+									<button type="button" class="btn btn-default dropdown-toggle"
+										data-toggle="dropdown">
+										<span ng-show="selectedCategory">{{selectedCategory}}</span> <span
+											ng-show="!selectedCategory">Categories</span> <span
+											class="caret"></span>
+									</button>
+									<ul class="dropdown-menu dropdown-menu-right" role="menu">
+										<span ng-show="selectedCategory"> <span
+											ng-show="selectedStore">
+												<li>&nbsp; <a href="#/store/{{selectedStore}}">All
+														Categories</a></li>
+										</span> <span ng-show="!selectedStore">
+												<li>&nbsp; <a href="#/home">All Categories</a></li>
+										</span>
+										</span>
+										<li ng-repeat="category in categoryList">
+											<div ng-show="selectedStore">
+												&nbsp; <a
+													href="#/store/{{selectedStore}}/category/{{category.categoryName}}">{{category.categoryName}}</a>
+											</div>
+											<div ng-show="!selectedStore">
+												&nbsp; <a href="#/category/{{category}}">{{category}}</a>
+											</div>
+										</li>
+									</ul>
+							</span>
+							</span>
+						</div>
+					</th>
+					<th class="info" style="background: orange; text-align: center"
+						ng-show="!mobile">Rebate</th>
+					<th class="info" style="background: orange; text-align: center"
+						ng-show="!mobile">Early Bird</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr
+					style="background: floralwhite; border-bottom: 0.1em solid gray;"
+					ng-repeat="deal in dealList | filter: searchFilter | startFrom:currentPage*pageSize | limitTo:pageSize"">
+					<td><img ng-src="{{deal.img_url}}" height="100" width="100" /><br />{{deal.price}}</td>
+					<td width="30%" style="vertical-align: middle;"><a
+						href="{{deal.product_url}}" target="_blank">{{deal.item}}</a></td>
+					<td width="15%" style="vertical-align: middle;">{{deal.store}}</td>
+					<td width="15%" style="vertical-align: middle;">{{deal.category}}</td>
+					<td width="10%" style="vertical-align: middle;" ng-show="!mobile">{{deal.rebate}}</td>
+					<td width="10%" style="vertical-align: middle;" ng-show="!mobile">{{deal.early_bird}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div id="300600">
+		`
+		<script type="text/javascript">
+			(function() {
+				if (window.CHITIKA === undefined) {
+					window.CHITIKA = {
 						'units' : []
 					};
-					CHITIKA.publisher = 'aarthiprasadr';
-					var s = document.createElement('script');
-					s.src = '//cdn.chitika.net/getads.js';
-					try {
-						document.getElementById('id72890').appendChild(s);
-					} catch (e) {
-						document.getElementById('id72890').innerHTML = s.outerHTML;
-					}
-				}());
-			</script>
-			</span>
-		</div>
+				}
+				;
+				var unit = {
+					"calltype" : "async[2]",
+					"publisher" : "aarthiprasadr",
+					"width" : 300,
+					"height" : 600,
+					"sid" : "Chitika Default"
+				};
+				var placement_id = window.CHITIKA.units.length;
+				window.CHITIKA.units.push(unit);
+				document.getElementById('id300600').innerHTML = '<div id="chitikaAdBlock-' + placement_id + '"></div>'
+			}());
+		</script>
+		<script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
+
 	</div>
-</div>
 
-<!-- /.row -->
-<div class="col-lg-9">
-	<br>
-	<div class="col-lg-12">
-		<div class="col-lg-5">
-			<ul class="pager"
-				style="text-align: left; margin: 0px; margin-bottom: 20px;">
-				<li><button class="btn btn-info" ng-disabled="currentPage == 0"
-						ng-click="currentPage=currentPage-1">&larr; Previous</button></li>
-				{{currentPage+1}} / {{numberOfPages()}}
-				<li><button class="btn btn-info"
-						ng-disabled="currentPage >= dealList.length/pageSize - 1"
-						ng-click="currentPage=currentPage+1">Next &rarr;</button></li>
-			</ul>
-		</div>
-		<div class="col-lg-7">
-			<input type="text" class="form-control" ng-model="nameFilter"
-				placeholder="Search for deals like...	Xbox..Apple..laptop..Tv.." />
-		</div>
+	<div id="300150">
+		<script type="text/javascript">
+			(function() {
+				if (window.CHITIKA === undefined) {
+					window.CHITIKA = {
+						'units' : []
+					};
+				}
+				;
+				var unit = {
+					"calltype" : "async[2]",
+					"publisher" : "aarthiprasadr",
+					"width" : 300,
+					"height" : 150,
+					"sid" : "Chitika Default"
+				};
+				var placement_id = window.CHITIKA.units.length;
+				window.CHITIKA.units.push(unit);
+				document.getElementById('id300150').innerHTML = '<div id="chitikaAdBlock-' + placement_id + '"></div>'
+			}());
+		</script>
+		<script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
 	</div>
-	<br />
-	<table class="table">
-		<thead style="border-bottom: 0.5em solid wheat;">
-			<tr>
-				<th class="info" style="background: #2aabd2; text-align: center"></th>
-				<th class="info" style="background: #2aabd2; text-align: center">Item</th>
-				<th class="info" style="background: #2aabd2; text-align: center">
-					<div ng-show="storeList">
-						<span class="input-group"> <span class="input-group-btn">
-								<button type="button" class="btn btn-default dropdown-toggle"
-									data-toggle="dropdown">
-									<span ng-show="selectedStore">{{selectedStore}}</span> <span
-										ng-show="!selectedStore">Stores</span> <span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu dropdown-menu-right" role="menu">
-									<span ng-show="selectedStore"> <span
-										ng-show="selectedCategory">
-											<li>&nbsp; <a href="#/category/{{selectedCategory}}">All
-													Stores</a></li>
-									</span> <span ng-show="!selectedCategory">
-											<li>&nbsp; <a href="#/home">All Stores</a></li>
-									</span>
-									</span>
-									<li ng-repeat="store in storeList ">
-										<div ng-show="selectedCategory">
-											&nbsp; <a
-												href="#/store/{{store}}/category/{{selectedCategory}}">{{store}}</a>
-										</div>
-										<div ng-show="!selectedCategory">
-											&nbsp; <a href="#/store/{{store}}">{{store}}</a>
-										</div>
-									</li>
-								</ul>
-						</span>
-						</span>
-					</div>
-				</th>
-				<th class="info" style="background: #2aabd2; text-align: center;">
-					<div ng-show="categoryList">
-						<span class="input-group"> <span class="input-group-btn">
-								<button type="button" class="btn btn-default dropdown-toggle"
-									data-toggle="dropdown">
-									<span ng-show="selectedCategory">{{selectedCategory}}</span> <span
-										ng-show="!selectedCategory">Categories</span> <span
-										class="caret"></span>
-								</button>
-								<ul class="dropdown-menu dropdown-menu-right" role="menu">
-									<span ng-show="selectedCategory"> <span
-										ng-show="selectedStore">
-											<li>&nbsp; <a href="#/store/{{selectedStore}}">All
-													Categories</a></li>
-									</span> <span ng-show="!selectedStore">
-											<li>&nbsp; <a href="#/home">All Categories</a></li>
-									</span>
-									</span>
-									<li ng-repeat="category in categoryList">
-										<div ng-show="selectedStore">
-											&nbsp; <a
-												href="#/store/{{selectedStore}}/category/{{category.categoryName}}">{{category.categoryName}}</a>
-										</div>
-										<div ng-show="!selectedStore">
-											&nbsp; <a href="#/category/{{category}}">{{category}}</a>
-										</div>
-									</li>
-								</ul>
-						</span>
-						</span>
-					</div>
-				</th>
-				<th ng-show="!mobile" class="info" style="background: #2aabd2; text-align: center">Rebate</th>
-				<th ng-show="!mobile" class="info" style="background: #2aabd2; text-align: center">Early
-					Bird</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr style="background: cornsilk; border-bottom: 0.3em solid wheat;"
-				ng-repeat="deal in dealList | filter: searchFilter | startFrom:currentPage*pageSize | limitTo:pageSize"">
-				<td><img ng-src="{{deal.img_url}}" height="100" width="100" /><br />{{deal.price}}</td>
-				<td width="30%" style="vertical-align: middle;"><a
-					href="{{deal.product_url}}" target="_blank">{{deal.item}}</a></td>
-				<td width="15%" style="vertical-align: middle;">{{deal.store}}</td>
-				<td width="15%" style="vertical-align: middle;">{{deal.category}}</td>
-				<td ng-show="!mobile" width="10%" style="vertical-align: middle;">{{deal.rebate}}</td>
-				<td ng-show="!mobile" width="10%" style="vertical-align: middle;">{{deal.early_bird}}</td>
-			</tr>
-		</tbody>
-	</table>
-</div>
-<div id="300600">
-	<script type="text/javascript">
-		(function() {
-			if (window.CHITIKA === undefined) {
-				window.CHITIKA = {
-					'units' : []
+
+	<div id="300250">
+		<script type="text/javascript">
+			(function() {
+				if (window.CHITIKA === undefined) {
+					window.CHITIKA = {
+						'units' : []
+					};
+				}
+				;
+				var unit = {
+					"calltype" : "async[2]",
+					"publisher" : "aarthiprasadr",
+					"width" : 300,
+					"height" : 150,
+					"sid" : "Chitika Default"
 				};
-			}
-			;
-			var unit = {
-				"calltype" : "async[2]",
-				"publisher" : "aarthiprasadr",
-				"width" : 300,
-				"height" : 600,
-				"sid" : "Chitika Default"
-			};
-			var placement_id = window.CHITIKA.units.length;
-			window.CHITIKA.units.push(unit);
-			document.getElementById('id300600').innerHTML = '<div id="chitikaAdBlock-' + placement_id + '"></div>'
-		}());
-	</script>
-	<script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
+				var placement_id = window.CHITIKA.units.length;
+				window.CHITIKA.units.push(unit);
+				document.getElementById('id300250').innerHTML = '<div id="chitikaAdBlock-' + placement_id + '"></div>'
+			}());
+		</script>
+		<script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
+	</div>
 
-</div>
-
-<div id="300150">
-	<script type="text/javascript">
-		(function() {
-			if (window.CHITIKA === undefined) {
-				window.CHITIKA = {
-					'units' : []
+	<div id="300250C1">
+		<script type="text/javascript">
+			(function() {
+				if (window.CHITIKA === undefined) {
+					window.CHITIKA = {
+						'units' : []
+					};
+				}
+				;
+				var unit = {
+					"calltype" : "async[2]",
+					"publisher" : "aarthiprasadr",
+					"width" : 300,
+					"height" : 250,
+					"sid" : "Chitika Default"
 				};
-			}
-			;
-			var unit = {
-				"calltype" : "async[2]",
-				"publisher" : "aarthiprasadr",
-				"width" : 300,
-				"height" : 150,
-				"sid" : "Chitika Default"
-			};
-			var placement_id = window.CHITIKA.units.length;
-			window.CHITIKA.units.push(unit);
-			document.getElementById('id300150').innerHTML = '<div id="chitikaAdBlock-' + placement_id + '"></div>'
-		}());
-	</script>
-	<script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
-</div>
+				var placement_id = window.CHITIKA.units.length;
+				window.CHITIKA.units.push(unit);
+				document.getElementById('id300150').innerHTML = '<div id="chitikaAdBlock-' + placement_id + '"></div>'
 
-<div id="300250">
-	<script type="text/javascript">
-		(function() {
-			if (window.CHITIKA === undefined) {
-				window.CHITIKA = {
-					'units' : []
-				};
-			}
-			;
-			var unit = {
-				"calltype" : "async[2]",
-				"publisher" : "aarthiprasadr",
-				"width" : 300,
-				"height" : 150,
-				"sid" : "Chitika Default"
-			};
-			var placement_id = window.CHITIKA.units.length;
-			window.CHITIKA.units.push(unit);
-			document.getElementById('id300250').innerHTML = '<div id="chitikaAdBlock-' + placement_id + '"></div>'
-		}());
-	</script>
-	<script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
-</div>
+			}());
+		</script>
+		<script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
+	</div>
 
-<div id="300250C1">
-	<script type="text/javascript">
-		(function() {
-			if (window.CHITIKA === undefined) {
-				window.CHITIKA = {
-					'units' : []
-				};
-			}
-			;
-			var unit = {
-				"calltype" : "async[2]",
-				"publisher" : "aarthiprasadr",
-				"width" : 300,
-				"height" : 250,
-				"sid" : "Chitika Default"
-			};
-			var placement_id = window.CHITIKA.units.length;
-			window.CHITIKA.units.push(unit);
-			document.getElementById('id300150').innerHTML = '<div id="chitikaAdBlock-' + placement_id + '"></div>'
-
-		}());
-	</script>
-	<script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
-</div>
-
-<div class="col-lg-3">
-	<br />
-	<div id="id300600" class="row">
-		<!-- <img class="img-responsive customer-img"
+	<div class="col-lg-3">
+		<br />
+		<div id="id300600" class="row">
+			<!-- <img class="img-responsive customer-img"
 			src="http://placehold.it/300x600" alt=""> -->
 
-	</div>
+		</div>
 
-
-	<br />
-	<div id="id300600-2" class="row">
-		<!-- <img class="img-responsive customer-img"
+		<br />
+		<div id="id300600-2" class="row">
+			<!-- <img class="img-responsive customer-img"
 			src="http://placehold.it/200x90" alt=""> -->
 
-		<iframe
-			src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=49&l=ur1&category=electronicsrot&f=ifr&linkID=SVJLD7RADQCJ7JH2"
-			width="300" height="600" scrolling="no" border="0" marginwidth="0"
-			style="border: none;" frameborder="0"></iframe>
+			<iframe
+				src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=49&l=ur1&category=electronicsrot&f=ifr&linkID=SVJLD7RADQCJ7JH2"
+				width="300" height="600" scrolling="no" border="0" marginwidth="0"
+				style="border: none;" frameborder="0"></iframe>
 
-	</div>
+		</div>
 
-	<br />
-	<div class="row">
-		<!-- <img class="img-responsive customer-img"
+		<br />
+		<div class="row">
+			<!-- <img class="img-responsive customer-img"
 			src="http://placehold.it/200x90" alt=""> -->
-		<!-- <iframe
+			<!-- <iframe
 			src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=12&l=ur1&category=ap1112_1120_dresswear&banner=1JYFZSAYYJSW0Q1TVBR2&f=ifr&linkID=U7J3IJFJZLICUJRM"
 			width="300" height="250" scrolling="no" border="0" marginwidth="0"
 			style="border: none;" frameborder="0"></iframe> -->
 
-		<!-- AdClickMedia Text Ads Code START -->
-		<script language="javascript" type="text/javascript"
-			src="http://textadvertising.adclickmedia.com/cgi-bin/textadrotate.cgi?aarthiprasadr::48577"></script>
-		<!-- AdClickMedia Text Ads Code END -->
-	</div>
+			<!-- AdClickMedia Text Ads Code START -->
+			<script language="javascript" type="text/javascript"
+				src="http://textadvertising.adclickmedia.com/cgi-bin/textadrotate.cgi?aarthiprasadr::48577"></script>
+			<!-- AdClickMedia Text Ads Code END -->
+		</div>
 
-	<br />
-	<div class="row">
-		<!-- <img class="img-responsive customer-img"
+		<br />
+		<div class="row">
+			<!-- <img class="img-responsive customer-img"
 			src="http://placehold.it/200x90" alt=""> -->
-		<iframe
-			src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=12&l=ur1&category=sh112_1120_20off100&banner=02BF3B5YSS5A8CYX9H02&f=ifr&linkID=4ALZ5I6OJ3EDCHCC"
-			width="300" height="250" scrolling="no" border="0" marginwidth="0"
-			style="border: none;" frameborder="0"></iframe>
+			<iframe
+				src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=12&l=ur1&category=sh112_1120_20off100&banner=02BF3B5YSS5A8CYX9H02&f=ifr&linkID=4ALZ5I6OJ3EDCHCC"
+				width="300" height="250" scrolling="no" border="0" marginwidth="0"
+				style="border: none;" frameborder="0"></iframe>
 
 
-	</div>
-	<br />
+		</div>
+		<br />
 
-	<div id="id300150" class="row">
-		<!-- <img class="img-responsive customer-img"
+		<div id="id300150" class="row">
+			<!-- <img class="img-responsive customer-img"
 			src="http://placehold.it/300x250" alt=""> -->
 
-	</div>
+		</div>
 
-	<br />
-	<div class="row">
-		<!-- <img class="img-responsive customer-img"
+		<br />
+		<div class="row">
+			<!-- <img class="img-responsive customer-img"
 			src="http://placehold.it/200x90" alt=""> -->
-		<iframe
-			src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=12&l=ur1&category=w_1112_1120_75prcntgifts&banner=02ZE0K2ZPRZ7BSM6JF82&f=ifr&linkID=T32OY4AV63N6367T"
-			width="300" height="250" scrolling="no" border="0" marginwidth="0"
-			style="border: none;" frameborder="0"></iframe>
+			<iframe
+				src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=12&l=ur1&category=w_1112_1120_75prcntgifts&banner=02ZE0K2ZPRZ7BSM6JF82&f=ifr&linkID=T32OY4AV63N6367T"
+				width="300" height="250" scrolling="no" border="0" marginwidth="0"
+				style="border: none;" frameborder="0"></iframe>
 
 
-	</div>
+		</div>
 
-	<br />
-	<div class="row">
-		<!-- <img class="img-responsive customer-img"
+		<br />
+		<div class="row">
+			<!-- <img class="img-responsive customer-img"
 			src="http://placehold.it/200x90" alt=""> -->
-		<iframe
-			src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=12&l=ur1&category=htl2014&banner=0W151YX9MV89518XNJR2&f=ifr&linkID=NPRL57NUXKV7DKWO"
-			width="300" height="250" scrolling="no" border="0" marginwidth="0"
-			style="border: none;" frameborder="0"></iframe>
+			<iframe
+				src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=12&l=ur1&category=htl2014&banner=0W151YX9MV89518XNJR2&f=ifr&linkID=NPRL57NUXKV7DKWO"
+				width="300" height="250" scrolling="no" border="0" marginwidth="0"
+				style="border: none;" frameborder="0"></iframe>
 
 
-	</div>
-	<br />
-	<div class="row">
-		<!-- <img class="img-responsive customer-img"
+		</div>
+		<br />
+		<div class="row">
+			<!-- <img class="img-responsive customer-img"
 			src="http://placehold.it/200x90" alt=""> -->
-		<iframe
-			src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=12&l=ur1&category=ce_smartphone_tradein&banner=1QZNHTXGBRPRTA9KQFG2&f=ifr&linkID=NEQNONPAWD7LYC7S"
-			width="300" height="250" scrolling="no" border="0" marginwidth="0"
-			style="border: none;" frameborder="0"></iframe>
+			<iframe
+				src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=12&l=ur1&category=ce_smartphone_tradein&banner=1QZNHTXGBRPRTA9KQFG2&f=ifr&linkID=NEQNONPAWD7LYC7S"
+				width="300" height="250" scrolling="no" border="0" marginwidth="0"
+				style="border: none;" frameborder="0"></iframe>
 
-	</div>
-	<br />
-	<div class="row">
-		<!-- <img class="img-responsive customer-img"
+		</div>
+		<br />
+		<div class="row">
+			<!-- <img class="img-responsive customer-img"
 			src="http://placehold.it/200x90" alt=""> -->
-		<iframe
-			src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=12&l=ur1&category=ce_2014tv&banner=0Q24YY8XJSVFAHT4CSG2&f=ifr&linkID=D64HBJ3MTAFUZUBH"
-			width="300" height="250" scrolling="no" border="0" marginwidth="0"
-			style="border: none;" frameborder="0"></iframe>
+			<iframe
+				src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=12&l=ur1&category=ce_2014tv&banner=0Q24YY8XJSVFAHT4CSG2&f=ifr&linkID=D64HBJ3MTAFUZUBH"
+				width="300" height="250" scrolling="no" border="0" marginwidth="0"
+				style="border: none;" frameborder="0"></iframe>
 
-	</div>
-	<br />
-	<div class="row">
-		<!-- <img class="img-responsive customer-img"
+		</div>
+		<br />
+		<div class="row">
+			<!-- <img class="img-responsive customer-img"
 			src="http://placehold.it/200x90" alt=""> -->
-		<iframe
-			src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=12&l=ur1&category=countbf&banner=1YBZEC8N4E8KAC6C7VR2&f=ifr&linkID=LLQ3CCOC7HLH4ENE"
-			width="300" height="250" scrolling="no" border="0" marginwidth="0"
-			style="border: none;" frameborder="0"></iframe>
+			<iframe
+				src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=12&l=ur1&category=countbf&banner=1YBZEC8N4E8KAC6C7VR2&f=ifr&linkID=LLQ3CCOC7HLH4ENE"
+				width="300" height="250" scrolling="no" border="0" marginwidth="0"
+				style="border: none;" frameborder="0"></iframe>
 
-	</div>
-	<br />
-	<div class="row">
-		<!-- <img class="img-responsive customer-img"
+		</div>
+		<br />
+		<div class="row">
+			<!-- <img class="img-responsive customer-img"
 			src="http://placehold.it/200x90" alt=""> -->
-		<iframe
-			src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=12&l=ur1&category=primeent&banner=032PM0C4EGZ3KFE57R82&f=ifr&linkID=AIXDCW4YQIHS25FM"
-			width="300" height="250" scrolling="no" border="0" marginwidth="0"
-			style="border: none;" frameborder="0"></iframe>
-	</div>
-	<br />
-	<div class="row">
-		<iframe
-			src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=12&l=ur1&category=cegghol13&banner=01EH9TTFKYZV4TJNBZ02&f=ifr&linkID=4KBNCJPTPFEMPMYW"
-			width="300" height="250" scrolling="no" border="0" marginwidth="0"
-			style="border: none;" frameborder="0"></iframe>
-	</div>
-	<br />
-	<div class="row">
-		<iframe
-			src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=11&l=ez&f=ifr&f=ifr&linkID=SB4D67WOZXGT7TE4"
-			width="120" height="600" scrolling="no" marginwidth="0"
-			marginheight="0" border="0" frameborder="0" style="border: none;"></iframe>
+			<iframe
+				src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=12&l=ur1&category=primeent&banner=032PM0C4EGZ3KFE57R82&f=ifr&linkID=AIXDCW4YQIHS25FM"
+				width="300" height="250" scrolling="no" border="0" marginwidth="0"
+				style="border: none;" frameborder="0"></iframe>
+		</div>
+		<br />
+		<div class="row">
+			<iframe
+				src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=12&l=ur1&category=cegghol13&banner=01EH9TTFKYZV4TJNBZ02&f=ifr&linkID=4KBNCJPTPFEMPMYW"
+				width="300" height="250" scrolling="no" border="0" marginwidth="0"
+				style="border: none;" frameborder="0"></iframe>
+		</div>
+		<br />
+		<div class="row">
+			<iframe
+				src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=11&l=ez&f=ifr&f=ifr&linkID=SB4D67WOZXGT7TE4"
+				width="120" height="600" scrolling="no" marginwidth="0"
+				marginheight="0" border="0" frameborder="0" style="border: none;"></iframe>
+		</div>
 
-	</div>
-
-	<div id="id300250" class="row">
-		<!-- <img class="img-responsive customer-img"
+		<div id="id300250" class="row">
+			<!-- <img class="img-responsive customer-img"
 			src="http://placehold.it/300x600" alt=""> -->
 
+		</div>
 	</div>
 </div>
