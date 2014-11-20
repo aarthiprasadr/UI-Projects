@@ -11,11 +11,12 @@
 	content="Friday wallet provides black friday deals of all the popular stores in one place. You can search for products based on store, categories and by specific item ">
 <meta name="keywords"
 	content="Black Friday, deals, electronics, laptops, tv, camera, appliances">
-<meta name="viewport" content="width=device-width, initial-scale=1" /> 
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="index,follow">
 <meta name="googlebot" content="index,follow">
 
-
+<!-- Our Website CSS Styles -->
+<link rel="stylesheet" href="css/main.css">
 <!-- Vendor: Bootstrap Stylesheets http://getbootstrap.com -->
 <link rel="stylesheet"
 	href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -25,51 +26,28 @@
 	href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
 	rel="stylesheet">
 
-<!-- Our Website CSS Styles -->
-<link rel="stylesheet" href="css/main.css">
 
+<style>
+#loading {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	display: none;
+	background: gold;
+	padding: 0.3em;
+	font-weight: bold;
+}
+</style>
 </head>
 <body class="main" ng-cloak ng-app="bfApp"
-	style="background-image: url('img/bg_body1.jpg');background-repeat: repeat; ">
-
+	style="/* background-image: linear-gradient(to bottom, #fff 0, hsl( 200, 10%, 10% ) 100%); */ ">
+	
 	<!-- Page Content -->
-	<div class="container">
+	<div class="container-fluid">
 		<!-- Portfolio Section -->
 		<div class="row">
 			<ng-view />
 		</div>
-
-		<!-- <div class="col-lg-12">
-			<div class="row">
-				<img class="img-responsive customer-img"
-					src="http://placehold.it/728x15" alt="">
-				<div>
-					<script type="text/javascript">
-						(function() {
-							if (window.CHITIKA === undefined) {
-								window.CHITIKA = {
-									'units' : []
-								};
-							}
-							;
-							var unit = {
-								"calltype" : "async[2]",
-								"publisher" : "aarthiprasadr",
-								"width" : 550,
-								"height" : 250,
-								"sid" : "Chitika Default"
-							};
-							var placement_id = window.CHITIKA.units.length;
-							window.CHITIKA.units.push(unit);
-							document
-									.write('<div id="chitikaAdBlock-' + placement_id + '"></div>');
-						}());
-					</script>
-					<script type="text/javascript" src="//cdn.chitika.net/getads.js"
-						async></script>
-				</div>
-			</div>
-		</div> -->
 		<hr />
 
 		<!-- Footer -->
@@ -91,9 +69,9 @@
 
 	<!-- Vendor: Angular, followed by our custom Javascripts -->
 	<script
-		src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.js"></script>
+		src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.js"></script>
 	<script
-		src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-route.js"></script>
+		src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-route.js"></script>
 
 	<!-- Our Website Javascripts -->
 	<script src="js/main.js"></script>

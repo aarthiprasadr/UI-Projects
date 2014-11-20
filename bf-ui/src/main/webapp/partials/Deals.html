@@ -1,22 +1,30 @@
 <!-- <div data-ng-controller="AllDeals" ng-show="mobile"
 	data-ng-init="redirectToMobile()"></div> -->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-	<div class="container">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"
+	style="background: hsl(200, 70%, 20%)">
+	<div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
-		<div class="navbar-header" style="height: 105px; margin-left: 25px">
+		<div class="navbar-header" style="height: 75px; margin-left: 25px;">
 			<ol class="nav navbar-nav">
-				<li><button type="button" class="navbar-toggle"
+				<li>
+					<!-- <button type="button" class="navbar-toggle"
 						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 						<span class="sr-only">Toggle navigation</span> <span
 							class="icon-bar"></span>
-					</button> <a class="navbar-brand" href="#/home" style="padding: 0px"><img
+					</button> --> <a class="navbar-brand" href="#/home"
+					style="padding: 0px"> <img ng-show="!mobile"
 						ng-src="img/bfl.png"
-						style="background-image: linear-gradient(to bottom, #3c3c3c 0, #222 100%); padding: 10px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px"
-						width="100px" height="105px;" /></a></li>
+						style="background-image: linear-gradient(to bottom, hsl(200, 70%, 20%) 0, #222 100%); padding: 10px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px"
+						width="100px" height="105px;" /> <img ng-show="mobile"
+						ng-src="img/bfl.png"
+						style="background-image: linear-gradient(to bottom, hsl(200, 70%, 20%) 0, #222 100%); padding: 10px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px"
+						width="100px" height="105px;" />
+				</a>
+				</li>
 			</ol>
 		</div>
 		<div ng-show="!mobile"
-			style="float: right; margin-top: 60px; width: 60%">
+			style="float: right; margin-top: 30px; width: 60%">
 			<input type="text" class="form-control" ng-model="nameFilter"
 				placeholder="Filter by item or store or category name" />
 		</div>
@@ -25,7 +33,18 @@
 <br />
 <br />
 <br />
-<br />
+<div class="col-lg-12" ng-show="mobile">
+	<div class="row">
+		<span id="72890"> <script type="text/javascript">
+			cmClient = 'aarthiprasadr';
+			cmChannel = 'Mobile Hook';
+			cmWidth = 320;
+			cmHeight = 480;
+		</script> <script type='text/javascript'
+				src='http://tags.chitika.net/oneliners/hook/beta.js'></script>
+		</span>
+	</div>
+</div>
 <div class="col-lg-12" ng-show="!mobile">
 	<!-- <img class="img-responsive customer-img"
 				src="http://placehold.it/728x90" alt=""> -->
@@ -39,25 +58,29 @@
 </div>
 <!-- /.row -->
 <div class="col-lg-12">
-	<div class="col-lg-12" ng-show="mobile">
-		<ul class="pager"
-			style="text-align: right; margin: 0px; margin-bottom: 20px;">
-			<li><button class="btn btn-info" ng-disabled="currentPage == 0"
-					ng-click="currentPage=currentPage-1">&larr; Previous</button></li>
-			{{currentPage+1}} / {{numberOfPages()}}
-			<li><button class="btn btn-info"
+	<!-- <div id="loading">Loading...</div> -->
+	<div class="pagination col-lg-12" ng-show="mobile">
+		<br /> <br />
+		<ul class="pager" style="margin: 0px; margin-bottom: 20px;">
+			<li><button style="float: left" class="btn btn-primary btn-lg"
+					ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">&larr;
+					Previous</button></li> {{currentPage+1}} / {{numberOfPages()}}
+			<li><button style="float: right" class="btn btn-primary btn-lg"
 					ng-disabled="currentPage >= dealList.length/pageSize - 1"
 					ng-click="currentPage=currentPage+1">Next &rarr;</button></li>
 		</ul>
-		<br /> <input type="text" class="form-control" ng-model="nameFilter"
-			placeholder="Filter by item or store or category name" /> <br />
-		<table class="table"
-			style="border-top-left-radius: 5px; border-top-right-radius: 5px;">
+		<table class="table">
 			<thead style="border-bottom: 0.3em solid gray;">
+				<tr colspan=3>
+					<input type="text" class="form-control" ng-model="nameFilter"
+						placeholder="Filter by item or store or category name" />
+						<br/>
+				</tr>
 				<tr>
-					<th class="info" style="background: orange; text-align: center"></th>
-					<th class="info" style="background: orange; text-align: center">Item</th>
-					<th class="info" style="background: orange; text-align: center">
+					<th class="info"
+						style="color: white; background: hsl(200, 70%, 20%); text-align: center">Item</th>
+					<th class="info"
+						style="color: white; background: hsl(200, 70%, 20%); text-align: center">
 						<div ng-show="storeList">
 							<span class="input-group"> <span class="input-group-btn">
 									<button type="button" class="btn btn-default dropdown-toggle"
@@ -88,7 +111,8 @@
 							</span>
 						</div>
 					</th>
-					<th class="info" style="background: orange; text-align: center;">
+					<th class="info"
+						style="color: white; background: hsl(200, 70%, 20%); text-align: center;">
 						<div ng-show="categoryList">
 							<span class="input-group"> <span class="input-group-btn">
 									<button type="button" class="btn btn-default dropdown-toggle"
@@ -120,33 +144,24 @@
 							</span>
 						</div>
 					</th>
-					<th class="info" style="background: orange; text-align: center"
-						ng-show="!mobile">Rebate</th>
-					<th class="info" style="background: orange; text-align: center"
-						ng-show="!mobile">Early Bird</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr
-					style="background: floralwhite; border-bottom: 0.1em solid gray;"
+				<tr style="border-bottom: 0.1em solid gray;"
 					ng-repeat="deal in dealList | filter: searchFilter | startFrom:currentPage*pageSize | limitTo:pageSize"">
-					<td><img ng-src="{{deal.img_url}}" height="100" width="100" /><br />{{deal.price}}</td>
-					<td width="30%" style="vertical-align: middle;"><a
-						href="{{deal.product_url}}" target="_blank">{{deal.item}}</a></td>
+					<td><img ng-src="{{deal.img_url}}" height="100" width="100" /><br />
+						<a href="{{deal.product_url}}" target="_blank">{{deal.item}}</a><br />{{deal.price}}</td>
 					<td width="15%" style="vertical-align: middle;">{{deal.store}}</td>
 					<td width="15%" style="vertical-align: middle;">{{deal.category}}</td>
-					<td width="10%" style="vertical-align: middle;" ng-show="!mobile">{{deal.rebate}}</td>
-					<td width="10%" style="vertical-align: middle;" ng-show="!mobile">{{deal.early_bird}}</td>
 				</tr>
 			</tbody>
 		</table>
 
-		<ul class="pager"
-			style="text-align: right; margin: 0px; margin-bottom: 20px;">
-			<li><button class="btn btn-info" ng-disabled="currentPage == 0"
-					ng-click="currentPage=currentPage-1">&larr; Previous</button></li>
-			{{currentPage+1}} / {{numberOfPages()}}
-			<li><button class="btn btn-info"
+		<ul class="pager" style="margin: 0px; margin-bottom: 20px;">
+			<li><button style="float: left" class="btn btn-primary btn-lg"
+					ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">&larr;
+					Previous</button></li> {{currentPage+1}} / {{numberOfPages()}}
+			<li><button style="float: right" class="btn btn-primary btn-lg"
 					ng-disabled="currentPage >= dealList.length/pageSize - 1"
 					ng-click="currentPage=currentPage+1">Next &rarr;</button></li>
 		</ul>
@@ -154,22 +169,23 @@
 
 	<div class="col-lg-9" ng-show="!mobile">
 		<br />
-		<ul class="pager"
-			style="text-align: left; margin: 0px; margin-bottom: 20px;">
-			<li><button class="btn btn-info" ng-disabled="currentPage == 0"
-					ng-click="currentPage=currentPage-1">&larr; Previous</button></li>
-			{{currentPage+1}} / {{numberOfPages()}}
-			<li><button class="btn btn-info"
+		<ul class="pager" style="margin: 0px; margin-bottom: 20px;">
+			<li><button style="text-align: left;" class="btn btn-primary"
+					ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">&larr;
+					Previous</button></li> {{currentPage+1}} / {{numberOfPages()}}
+			<li><button style="text-align: right;" class="btn btn-primary"
 					ng-disabled="currentPage >= dealList.length/pageSize - 1"
 					ng-click="currentPage=currentPage+1">Next &rarr;</button></li>
 		</ul>
-		<table class="table"
-			style="border-top-left-radius: 5px; border-top-right-radius: 5px;">
+		<table class="table">
 			<thead style="border-bottom: 0.3em solid gray;">
 				<tr>
-					<th class="info" style="background: orange; text-align: center"></th>
-					<th class="info" style="background: orange; text-align: center">Item</th>
-					<th class="info" style="background: orange; text-align: center">
+					<th class="info"
+						style="color: white; background: hsl(200, 70%, 20%); text-align: center"></th>
+					<th class="info"
+						style="color: white; background: hsl(200, 70%, 20%); text-align: center">Item</th>
+					<th class="info"
+						style="color: white; background: hsl(200, 70%, 20%); text-align: center">
 						<div ng-show="storeList">
 							<span class="input-group"> <span class="input-group-btn">
 									<button type="button" class="btn btn-default dropdown-toggle"
@@ -200,7 +216,8 @@
 							</span>
 						</div>
 					</th>
-					<th class="info" style="background: orange; text-align: center;">
+					<th class="info"
+						style="color: white; background: hsl(200, 70%, 20%); text-align: center;">
 						<div ng-show="categoryList">
 							<span class="input-group"> <span class="input-group-btn">
 									<button type="button" class="btn btn-default dropdown-toggle"
@@ -232,10 +249,11 @@
 							</span>
 						</div>
 					</th>
-					<th class="info" style="background: orange; text-align: center"
-						ng-show="!mobile">Rebate</th>
-					<th class="info" style="background: orange; text-align: center"
-						ng-show="!mobile">Early Bird</th>
+					<th class="info"
+						style="color: white; background: hsl(200, 70%, 20%); text-align: center">Rebate</th>
+					<th class="info"
+						style="color: white; background: hsl(200, 70%, 20%); text-align: center">Early
+						Bird</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -247,112 +265,115 @@
 						href="{{deal.product_url}}" target="_blank">{{deal.item}}</a></td>
 					<td width="15%" style="vertical-align: middle;">{{deal.store}}</td>
 					<td width="15%" style="vertical-align: middle;">{{deal.category}}</td>
-					<td width="10%" style="vertical-align: middle;" ng-show="!mobile">{{deal.rebate}}</td>
-					<td width="10%" style="vertical-align: middle;" ng-show="!mobile">{{deal.early_bird}}</td>
+					<td width="10%" style="vertical-align: middle;">{{deal.rebate}}</td>
+					<td width="10%" style="vertical-align: middle;">{{deal.early_bird}}</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-	<div id="300600">
-		`
-		<script type="text/javascript">
-			(function() {
-				if (window.CHITIKA === undefined) {
-					window.CHITIKA = {
-						'units' : []
+
+	<div class="col-lg-3" ng-show="!mobile">
+		<div id="300600">
+			<script type="text/javascript">
+				(function() {
+					if (window.CHITIKA === undefined) {
+						window.CHITIKA = {
+							'units' : []
+						};
+					}
+					;
+					var unit = {
+						"calltype" : "async[2]",
+						"publisher" : "aarthiprasadr",
+						"width" : 300,
+						"height" : 600,
+						"sid" : "Chitika Default"
 					};
-				}
-				;
-				var unit = {
-					"calltype" : "async[2]",
-					"publisher" : "aarthiprasadr",
-					"width" : 300,
-					"height" : 600,
-					"sid" : "Chitika Default"
-				};
-				var placement_id = window.CHITIKA.units.length;
-				window.CHITIKA.units.push(unit);
-				document.getElementById('id300600').innerHTML = '<div id="chitikaAdBlock-' + placement_id + '"></div>'
-			}());
-		</script>
-		<script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
+					var placement_id = window.CHITIKA.units.length;
+					window.CHITIKA.units.push(unit);
+					document.getElementById('id300600').innerHTML = '<div id="chitikaAdBlock-' + placement_id + '"></div>'
+				}());
+			</script>
+			<script type="text/javascript" src="//cdn.chitika.net/getads.js"
+				async></script>
 
-	</div>
+		</div>
 
-	<div id="300150">
-		<script type="text/javascript">
-			(function() {
-				if (window.CHITIKA === undefined) {
-					window.CHITIKA = {
-						'units' : []
+		<div id="300150">
+			<script type="text/javascript">
+				(function() {
+					if (window.CHITIKA === undefined) {
+						window.CHITIKA = {
+							'units' : []
+						};
+					}
+					;
+					var unit = {
+						"calltype" : "async[2]",
+						"publisher" : "aarthiprasadr",
+						"width" : 300,
+						"height" : 150,
+						"sid" : "Chitika Default"
 					};
-				}
-				;
-				var unit = {
-					"calltype" : "async[2]",
-					"publisher" : "aarthiprasadr",
-					"width" : 300,
-					"height" : 150,
-					"sid" : "Chitika Default"
-				};
-				var placement_id = window.CHITIKA.units.length;
-				window.CHITIKA.units.push(unit);
-				document.getElementById('id300150').innerHTML = '<div id="chitikaAdBlock-' + placement_id + '"></div>'
-			}());
-		</script>
-		<script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
-	</div>
+					var placement_id = window.CHITIKA.units.length;
+					window.CHITIKA.units.push(unit);
+					document.getElementById('id300150').innerHTML = '<div id="chitikaAdBlock-' + placement_id + '"></div>'
+				}());
+			</script>
+			<script type="text/javascript" src="//cdn.chitika.net/getads.js"
+				async></script>
+		</div>
 
-	<div id="300250">
-		<script type="text/javascript">
-			(function() {
-				if (window.CHITIKA === undefined) {
-					window.CHITIKA = {
-						'units' : []
+		<div id="300250">
+			<script type="text/javascript">
+				(function() {
+					if (window.CHITIKA === undefined) {
+						window.CHITIKA = {
+							'units' : []
+						};
+					}
+					;
+					var unit = {
+						"calltype" : "async[2]",
+						"publisher" : "aarthiprasadr",
+						"width" : 300,
+						"height" : 150,
+						"sid" : "Chitika Default"
 					};
-				}
-				;
-				var unit = {
-					"calltype" : "async[2]",
-					"publisher" : "aarthiprasadr",
-					"width" : 300,
-					"height" : 150,
-					"sid" : "Chitika Default"
-				};
-				var placement_id = window.CHITIKA.units.length;
-				window.CHITIKA.units.push(unit);
-				document.getElementById('id300250').innerHTML = '<div id="chitikaAdBlock-' + placement_id + '"></div>'
-			}());
-		</script>
-		<script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
-	</div>
+					var placement_id = window.CHITIKA.units.length;
+					window.CHITIKA.units.push(unit);
+					document.getElementById('id300250').innerHTML = '<div id="chitikaAdBlock-' + placement_id + '"></div>'
+				}());
+			</script>
+			<script type="text/javascript" src="//cdn.chitika.net/getads.js"
+				async></script>
+		</div>
 
-	<div id="300250C1">
-		<script type="text/javascript">
-			(function() {
-				if (window.CHITIKA === undefined) {
-					window.CHITIKA = {
-						'units' : []
+		<div id="300250C1">
+			<script type="text/javascript">
+				(function() {
+					if (window.CHITIKA === undefined) {
+						window.CHITIKA = {
+							'units' : []
+						};
+					}
+					;
+					var unit = {
+						"calltype" : "async[2]",
+						"publisher" : "aarthiprasadr",
+						"width" : 300,
+						"height" : 250,
+						"sid" : "Chitika Default"
 					};
-				}
-				;
-				var unit = {
-					"calltype" : "async[2]",
-					"publisher" : "aarthiprasadr",
-					"width" : 300,
-					"height" : 250,
-					"sid" : "Chitika Default"
-				};
-				var placement_id = window.CHITIKA.units.length;
-				window.CHITIKA.units.push(unit);
-				document.getElementById('id300150').innerHTML = '<div id="chitikaAdBlock-' + placement_id + '"></div>'
+					var placement_id = window.CHITIKA.units.length;
+					window.CHITIKA.units.push(unit);
+					document.getElementById('id300150').innerHTML = '<div id="chitikaAdBlock-' + placement_id + '"></div>'
 
-			}());
-		</script>
-		<script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
-	</div>
-
-	<div class="col-lg-3">
+				}());
+			</script>
+			<script type="text/javascript" src="//cdn.chitika.net/getads.js"
+				async></script>
+		</div>
 		<br />
 		<div id="id300600" class="row">
 			<!-- <img class="img-responsive customer-img"
