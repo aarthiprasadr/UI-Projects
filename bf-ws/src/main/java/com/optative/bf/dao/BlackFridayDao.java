@@ -42,6 +42,23 @@ public class BlackFridayDao {
 		jdbcTemplate = new JdbcTemplate(mysqldataSource);
 	}
 
+	public DealList searchDeal(String searchName) {
+		
+		String searchQuery = "%"+searchName+"%";
+
+		String query = "SELECT id, store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal2014  where store like ? or category like ? or sub_category like ? or item like ? group by id";
+
+		try {
+			List<Deal> list = jdbcTemplate.query(query, new Object[] {
+					searchQuery, searchQuery, searchQuery, searchQuery },
+					new DealMapper());
+			DealList dealList = new DealList(list);
+			return dealList;
+		} catch (DataAccessException e) {
+			throw e;
+		}
+	}
+
 	public Deal getDeal() {
 		Deal deal = new Deal();
 		deal.setStore("ZZZZZZZ");
@@ -58,7 +75,7 @@ public class BlackFridayDao {
 	}
 
 	public void addDeals(DealList deals) {
-		
+
 		String statement = "INSERT INTO black_friday.deal2014 (store, category, sub_category, item, early_bird, rebate, img_url, product_url, price) VALUES (?,?,?,?,?,?,?,?,?);";
 		try {
 			for (Deal deal : deals.getDeals()) {
@@ -76,33 +93,34 @@ public class BlackFridayDao {
 	}
 
 	public void addDeal(Deal deal) {
-		if(deal.getId() == 0){
-		String statement = "INSERT INTO black_friday.deal2014 (store, category, sub_category, item, early_bird, rebate, img_url, product_url, price) VALUES (?,?,?,?,?,?,?,?,?);";
-		try {
-			jdbcTemplate.update(statement, deal.getStore(), deal.getCategory(),
-					deal.getSub_category(), deal.getItem(),
-					deal.getEarly_bird(), deal.getRebate(), deal.getImg_url(),
-					deal.getProduct_url(), deal.getPrice());
-		} catch (DataAccessException e) {
-			log.error("problem adding node metrics to database"
-					+ e.getMessage());
-			throw e;
-		}
-		}
-		else{
+		if (deal.getId() == 0) {
+			String statement = "INSERT INTO black_friday.deal2014 (store, category, sub_category, item, early_bird, rebate, img_url, product_url, price) VALUES (?,?,?,?,?,?,?,?,?);";
+			try {
+				jdbcTemplate.update(statement, deal.getStore(),
+						deal.getCategory(), deal.getSub_category(),
+						deal.getItem(), deal.getEarly_bird(), deal.getRebate(),
+						deal.getImg_url(), deal.getProduct_url(),
+						deal.getPrice());
+			} catch (DataAccessException e) {
+				log.error("problem adding node metrics to database"
+						+ e.getMessage());
+				throw e;
+			}
+		} else {
 			String statement = "UPDATE black_friday.deal2014   SET store = ?, category = ?, sub_category = ?, item = ?, early_bird = ?, rebate = ?, img_url = ?, product_url = ?, price = ? WHERE id = ?;";
 			try {
-				jdbcTemplate.update(statement, deal.getStore(), deal.getCategory(),
-						deal.getSub_category(), deal.getItem(),
-						deal.getEarly_bird(), deal.getRebate(), deal.getImg_url(),
-						deal.getProduct_url(), deal.getPrice(), deal.getId());
+				jdbcTemplate.update(statement, deal.getStore(),
+						deal.getCategory(), deal.getSub_category(),
+						deal.getItem(), deal.getEarly_bird(), deal.getRebate(),
+						deal.getImg_url(), deal.getProduct_url(),
+						deal.getPrice(), deal.getId());
 			} catch (DataAccessException e) {
 				log.error("problem adding node metrics to database"
 						+ e.getMessage());
 				throw e;
 			}
 		}
-		//addDetails(deal);
+		// addDetails(deal);
 	}
 
 	public void addDetails(Deal deal) {

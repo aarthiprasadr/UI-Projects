@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
@@ -42,6 +43,12 @@ public class ReportingController {
 
 	private static final Logger log = LoggerFactory
 			.getLogger(ReportingController.class);
+	
+	@RequestMapping(value = "/search/{searchName}", method = RequestMethod.GET)
+	public @ResponseBody DealList searchDeal(@PathVariable String searchName) {
+
+		return daoImpl.searchDeal(searchName);
+	}
 
 
 	@RequestMapping(value = "/Deal", method = RequestMethod.GET)
@@ -71,6 +78,7 @@ public class ReportingController {
 	
 
 	@RequestMapping(value = "/deals", method = RequestMethod.GET)
+	@Cacheable("deals")
 	public @ResponseBody DealList getAllDeals(
 			@RequestParam(required = false, value = MARKER, defaultValue = "1") int marker,
 			@RequestParam(required = false, value = LIMIT, defaultValue = "50000") int limit) {
