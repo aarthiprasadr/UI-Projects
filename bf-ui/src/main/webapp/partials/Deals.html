@@ -90,7 +90,7 @@
 										<span ng-show="selectedStore">{{selectedStore}}</span> <span
 											ng-show="!selectedStore">Stores</span> <span class="caret"></span>
 									</button>
-									<ul class="dropdown-menu dropdown-menu-right" role="menu">
+									<ul class="dropdown-menu dropdown-menu-right scrollable-menu" role="menu">
 										<span ng-show="selectedStore"> <span
 											ng-show="selectedCategory">
 												<li>&nbsp; <a href="#/category/{{selectedCategory}}">All
@@ -195,7 +195,7 @@
 										<span ng-show="selectedStore">{{selectedStore}}</span> <span
 											ng-show="!selectedStore">Stores</span> <span class="caret"></span>
 									</button>
-									<ul class="dropdown-menu dropdown-menu-right" role="menu">
+									<ul class="dropdown-menu dropdown-menu-right scrollable-menu" role="menu">
 										<span ng-show="selectedStore"> <span
 											ng-show="selectedCategory">
 												<li>&nbsp; <a href="#/category/{{selectedCategory}}">All
@@ -228,7 +228,7 @@
 											ng-show="!selectedCategory">Categories</span> <span
 											class="caret"></span>
 									</button>
-									<ul class="dropdown-menu dropdown-menu-right" role="menu">
+									<ul class="dropdown-menu dropdown-menu-right scrollable-menu" role="menu">
 										<span ng-show="selectedCategory"> <span
 											ng-show="selectedStore">
 												<li>&nbsp; <a href="#/store/{{selectedStore}}">All
@@ -264,7 +264,7 @@
 					ng-repeat="deal in dealList | filter: searchFilter | startFrom:currentPage*pageSize | limitTo:pageSize"">
 					<td><img ng-src="{{deal.img_url}}" height="100" width="100" /><br />{{deal.price}}</td>
 					<td width="30%" style="vertical-align: middle;"><a
-						href="{{deal.product_url}}" target="_blank">{{deal.item}}</a></td>
+						href="{{deal.product_url}}" target="_blank">{{deal.item}}</a> <br> {{deal.rebate}}<br>{{deal.early_bird}}</td>
 					<td width="15%" style="vertical-align: middle;">{{deal.store}}</td>
 					<td width="15%" style="vertical-align: middle;">{{deal.category}}</td>
 					<td width="10%" style="vertical-align: middle;">{{deal.rebate}}</td>

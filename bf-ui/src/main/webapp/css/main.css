@@ -20,6 +20,12 @@ body {
 	cursor: pointer;
 }
 
+.scrollable-menu {
+    height: auto;
+    max-height: 300px;
+    overflow-x: hidden;
+}
+
 .img-home-portfolio, .img-customer, .portfolio-item {
 	margin-bottom: 30px;
 }
@@ -122,13 +128,10 @@ footer {
 
 /* Responsive Styles */
 @media ( max-width : 481px) {
-	
-	.container-fluid .table, 
-	.container-fluid input, 
-	.container-fluid .pagination {
+	.container-fluid .table, .container-fluid input, .container-fluid .pagination
+		{
 		margin-left: 0px;
 	}
-	
 	.container-fluid {
 		min-width: 320px;
 		max-width: 480px;
