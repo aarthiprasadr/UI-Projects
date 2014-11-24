@@ -24,9 +24,22 @@
 			</ol>
 		</div>
 		<div ng-show="!mobile"
-			style="float: right; margin-top: 30px; width: 60%">
-			<input type="text" class="form-control" ng-model="nameFilter"
-				placeholder="Filter by item or store or category name" />
+			style="float: right; margin-top: 30px; width: 80%">
+			<table class="table">
+				<thead>
+					<tr>
+						<td width="80%"><input type="text" class="form-control"
+							ng-model="dealSearch"
+							placeholder="Search by item or store or category name" /></td>
+						<td><span class="input-group-btn">
+								<button class="btn btn-default" type="button"
+									ng-click="searchForResult()">
+									<span class="glyphicon glyphicon-search"></span>
+								</button>
+						</span></td>
+					</tr>
+				</thead>
+			</table>
 		</div>
 	</div>
 </nav>
@@ -73,10 +86,16 @@
 		</ul>
 		<table class="table">
 			<thead style="border-bottom: 0.3em solid gray;">
-				<tr colspan=3>
-					<input type="text" class="form-control" ng-model="nameFilter"
-						placeholder="Filter by item or store or category name" />
-					<br />
+				<tr>
+					<td colspan=2><input type="text" class="form-control"
+						ng-model="dealSearch"
+						placeholder="Search by item or store or category name" /></td>
+					<td><span class="input-group-btn">
+							<button class="btn btn-default" type="button"
+								ng-click="searchForResult()">
+								<span class="glyphicon glyphicon-search"></span>
+							</button>
+					</span></td>
 				</tr>
 				<tr>
 					<th class="info"
@@ -90,7 +109,8 @@
 										<span ng-show="selectedStore">{{selectedStore}}</span> <span
 											ng-show="!selectedStore">Stores</span> <span class="caret"></span>
 									</button>
-									<ul class="dropdown-menu dropdown-menu-right scrollable-menu" role="menu">
+									<ul class="dropdown-menu dropdown-menu-right scrollable-menu"
+										role="menu">
 										<span ng-show="selectedStore"> <span
 											ng-show="selectedCategory">
 												<li>&nbsp; <a href="#/category/{{selectedCategory}}">All
@@ -150,7 +170,7 @@
 			</thead>
 			<tbody>
 				<tr style="border-bottom: 0.1em solid gray;"
-					ng-repeat="deal in dealList | filter: searchFilter | startFrom:currentPage*pageSize | limitTo:pageSize"">
+					ng-repeat="deal in dealList | startFrom:currentPage*pageSize | limitTo:pageSize"">
 					<td><img ng-src="{{deal.img_url}}" height="100" width="100" /><br />
 						<a href="{{deal.product_url}}" target="_blank">{{deal.item}}</a><br />{{deal.price}}</td>
 					<td width="15%" style="vertical-align: middle;">{{deal.store}}</td>
@@ -195,7 +215,8 @@
 										<span ng-show="selectedStore">{{selectedStore}}</span> <span
 											ng-show="!selectedStore">Stores</span> <span class="caret"></span>
 									</button>
-									<ul class="dropdown-menu dropdown-menu-right scrollable-menu" role="menu">
+									<ul class="dropdown-menu dropdown-menu-right scrollable-menu"
+										role="menu">
 										<span ng-show="selectedStore"> <span
 											ng-show="selectedCategory">
 												<li>&nbsp; <a href="#/category/{{selectedCategory}}">All
@@ -228,7 +249,8 @@
 											ng-show="!selectedCategory">Categories</span> <span
 											class="caret"></span>
 									</button>
-									<ul class="dropdown-menu dropdown-menu-right scrollable-menu" role="menu">
+									<ul class="dropdown-menu dropdown-menu-right scrollable-menu"
+										role="menu">
 										<span ng-show="selectedCategory"> <span
 											ng-show="selectedStore">
 												<li>&nbsp; <a href="#/store/{{selectedStore}}">All
@@ -261,10 +283,11 @@
 			<tbody>
 				<tr
 					style="background: floralwhite; border-bottom: 0.1em solid gray;"
-					ng-repeat="deal in dealList | filter: searchFilter | startFrom:currentPage*pageSize | limitTo:pageSize"">
+					ng-repeat="deal in dealList | startFrom:currentPage*pageSize | limitTo:pageSize"">
 					<td><img ng-src="{{deal.img_url}}" height="100" width="100" /><br />{{deal.price}}</td>
 					<td width="30%" style="vertical-align: middle;"><a
-						href="{{deal.product_url}}" target="_blank">{{deal.item}}</a> <br> {{deal.rebate}}<br>{{deal.early_bird}}</td>
+						href="{{deal.product_url}}" target="_blank">{{deal.item}}</a> <br>
+						{{deal.rebate}}<br>{{deal.early_bird}}</td>
 					<td width="15%" style="vertical-align: middle;">{{deal.store}}</td>
 					<td width="15%" style="vertical-align: middle;">{{deal.category}}</td>
 					<td width="10%" style="vertical-align: middle;">{{deal.rebate}}</td>
@@ -481,7 +504,7 @@
 			<!-- chitika 336 X 400 -->
 		</div>
 		<br />
-	
+
 		<div class="row">
 			<iframe
 				src="http://rcm-na.amazon-adsystem.com/e/cm?t=wwwfridaywall-20&o=1&p=12&l=ur1&category=cegghol13&banner=01EH9TTFKYZV4TJNBZ02&f=ifr&linkID=4KBNCJPTPFEMPMYW"
