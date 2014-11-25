@@ -362,7 +362,55 @@ public class BlackFridayDao {
 			throw e;
 		}
 	}
+	
+	public DealList getDealsBySubCategory(String subCategoryName) {
+		String query = "SELECT id, store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal2014  where sub_category = ? order by store, category, sub_category, item ";
 
+		try {
+			List<Deal> list = jdbcTemplate.query(query, new Object[] {
+					subCategoryName }, new DealMapper());
+			return new DealList(list);
+		} catch (DataAccessException e) {
+			throw e;
+		}
+	}
+	
+	public DealList getDealsByCategoryAndSubCategory(String category, String subCategoryName) {
+		String query = "SELECT id, store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal2014  where category = ? and sub_category = ? order by store, category, sub_category, item ";
+
+		try {
+			List<Deal> list = jdbcTemplate.query(query, new Object[] {
+					category, subCategoryName }, new DealMapper());
+			return new DealList(list);
+		} catch (DataAccessException e) {
+			throw e;
+		}
+	}
+	
+	public DealList getDealsByStoreCategoryAndSubCategory(String store, String category, String subCategoryName) {
+		String query = "SELECT id, store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal2014  where store = ? and category = ? and sub_category = ? order by store, category, sub_category, item ";
+
+		try {
+			List<Deal> list = jdbcTemplate.query(query, new Object[] {
+					store, category, subCategoryName }, new DealMapper());
+			return new DealList(list);
+		} catch (DataAccessException e) {
+			throw e;
+		}
+	}
+	
+	public DealList getDealsByStoreAndSubCategory(String store, String subCategoryName) {
+		String query = "SELECT id, store, category, sub_category, item, early_bird, rebate, img_url, product_url, price FROM black_friday.deal2014  where store = ? and sub_category = ? order by store, category, sub_category, item ";
+
+		try {
+			List<Deal> list = jdbcTemplate.query(query, new Object[] {
+					store, subCategoryName }, new DealMapper());
+			return new DealList(list);
+		} catch (DataAccessException e) {
+			throw e;
+		}
+	}
+	
 	public StoreList getAllStores() {
 		String query = "select distinct store from black_friday.deal2014   order by store ";
 		final List<String> storeNames = new ArrayList<String>();
