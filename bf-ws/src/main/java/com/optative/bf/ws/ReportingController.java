@@ -195,6 +195,27 @@ public class ReportingController {
 		return daoImpl.getStoresForCategory(categoryName);
 	}
 
+	@RequestMapping(value = "/category/{subCategoryName}", method = RequestMethod.GET)
+	public CategoryList getCategoryForSubCategory(
+			@PathVariable String subCategoryName) {
+
+		return daoImpl.getCategoryForSubCategory(subCategoryName);
+	}
+
+	@RequestMapping(value = "/store/{storeName}/sub-category/{subCategoryName}", method = RequestMethod.GET)
+	public CategoryList getCategoryForStoreAndSubCategory(
+			@PathVariable String storeName, @PathVariable String subCategoryName) {
+
+		return daoImpl.getCategoryForStoreAndSubCategory(storeName, subCategoryName);
+	}
+	
+	@RequestMapping(value = "/store/{storeName}/category/{categoryName}", method = RequestMethod.GET)
+	public SubCategoryList getSubCategoryForStoreAndCategory(
+			@PathVariable String storeName, @PathVariable String categoryName) {
+
+		return daoImpl.getSubCategoryForStoreAndCategory(storeName, categoryName);
+	}
+
 	@RequestMapping(value = "/stores/subCategory/{subCategoryName}", method = RequestMethod.GET)
 	public StoreList getStoresForSubCategory(
 			@PathVariable String subCategoryName) {
